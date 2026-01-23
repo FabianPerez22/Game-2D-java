@@ -20,12 +20,40 @@ public class Entity {
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collisionOn = false;
-    public int actionLockCounter =0;
+    public int actionLockCounter = 0;
+    String dialogues[] = new String[20];
+    int dialogueIndex = 0;
+
+    // CHARACTER STATUS
+    public int maxLife;
+    public int life;
 
     public Entity(GamePanel gp){
         this.gp = gp;
     }
+    public void speak(){
 
+        if(dialogues[dialogueIndex] == null) {
+            dialogueIndex = 0;
+        }
+        gp.ui.currentDialogue = dialogues[dialogueIndex];
+        dialogueIndex++;
+
+        switch (gp.player.direction) {
+            case "up":
+                direction = "down";
+                break;
+            case "down":
+                direction = "up";
+                break;
+            case "left":
+                direction = "right";
+                break;
+            case "right":
+                direction = "left";
+                break;
+        }
+    }
     public void setAction(){}
     public void update(){
         setAction();
