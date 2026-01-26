@@ -13,9 +13,12 @@ public class MON_GreenSlime extends Entity {
 
     GamePanel gp;
 
-    public MON_GreenSlime(GamePanel gp) {
+    public MON_GreenSlime(GamePanel gp, int col, int row) {
+
         super(gp);
         this.gp = gp;
+        this.worldX = gp.tileSize * col;
+        this.worldY = gp.tileSize * row;
 
         type = type_monster;
         name = "Green Slime";

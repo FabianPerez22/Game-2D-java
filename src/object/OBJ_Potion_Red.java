@@ -6,8 +6,8 @@ import main.GamePanel;
 public class OBJ_Potion_Red extends Entity {
 
     GamePanel gp;
-    public OBJ_Potion_Red(GamePanel gp) {
-        super(gp);
+    public OBJ_Potion_Red(GamePanel gp, int col, int row) {
+        super(gp, col, row);
 
         this.gp = gp;
         type = type_consumable;
@@ -15,8 +15,16 @@ public class OBJ_Potion_Red extends Entity {
         name = "Red Potion";
         description = "["+ name +"]\nHeals your life by " + value+".";
         down1 = setup("objects/potion_red", gp.tileSize, gp.tileSize);
-
-
+    }
+    public OBJ_Potion_Red(GamePanel gp) {
+        super(gp);
+        price = 5;
+        this.gp = gp;
+        type = type_consumable;
+        value = 5;
+        name = "Red Potion";
+        description = "["+ name +"]\nHeals your life by " + value+".";
+        down1 = setup("objects/potion_red", gp.tileSize, gp.tileSize);
     }
 
     public void use(Entity entity) {

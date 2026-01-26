@@ -28,11 +28,12 @@ public class GamePanel extends JPanel implements Runnable{
     //WORD SETTINGS
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
+    public final int maxMap = 10;
+    public int currentMap = 0;
 
     // FPS
-    int FPS = 60;
-    //int FPSAtributes= 10;
-
+    final int UPS = 60;
+    final int FPS = 30;
 
     // SYSTEM
     TileManager tileM = new TileManager(this);
@@ -48,10 +49,10 @@ public class GamePanel extends JPanel implements Runnable{
 
     // ENTITY AND OBJECT
     public Player player = new Player(this,keyH);
-    public Entity obj[] = new Entity[20];
-    public Entity npc[] = new Entity[10];
-    public Entity monster[] = new Entity[20];
-    public InteractiveTile iTile[] = new InteractiveTile[50];
+    public Entity obj[][] = new Entity[maxMap][20];
+    public Entity npc[][] = new Entity[maxMap][10];
+    public Entity monster[][] = new Entity[maxMap][20];
+    public InteractiveTile iTile[][] = new InteractiveTile[maxMap][50];
     ArrayList<Entity> entityList = new ArrayList<>();
     public ArrayList<Entity> particleList = new ArrayList<>();
     public ArrayList<Entity> projectileList = new ArrayList<>();
@@ -65,6 +66,8 @@ public class GamePanel extends JPanel implements Runnable{
     public final int charactersState = 4;
     public final int optionState = 5;
     public final int gameOverState = 6;
+    public final int transitionState = 7;
+    public final int tradeState = 8;
 
     public GamePanel () {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -90,13 +93,11 @@ public class GamePanel extends JPanel implements Runnable{
     }
     public void restart() {
         player.setDefaultValues();
-
         player.setItems();
         aSetter.setMonster();
         aSetter.setNPC();
         aSetter.setObject();
         aSetter.setInteractiveTile();
-
     }
     public void startGameThrea() {
         gameThread = new Thread(this);
@@ -105,44 +106,49 @@ public class GamePanel extends JPanel implements Runnable{
     @Override
     public void run() {
 
-        double drawInerval = 1000000000/FPS;
-        //double drawInervalMaps = 1000000000/FPSAtributes;
+        double updateInterval = 1000000000.0 / UPS;
+        double drawInterval   = 1000000000.0 / FPS;
 
-        double delta = 0;
-        double deltaMaps = 0;
+        double deltaUpdate = 0;
+        double deltaDraw   = 0;
+
         long lastTime = System.nanoTime();
-        long currentTime;
 
         long timer = 0;
+        int UPSCount = 0;
         int drawCount = 0;
-        int drawCountMaps = 0;
 
         while (gameThread != null) {
 
-            currentTime = System.nanoTime();
-            delta += (currentTime - lastTime) / drawInerval;
-           // deltaMaps += (currentTime - lastTime) / drawInervalMaps;
+            long currentTime = System.nanoTime();
+            long elapsed = currentTime - lastTime;
+            lastTime = currentTime;
+
+            deltaUpdate += elapsed / updateInterval;
+            deltaDraw   += elapsed / drawInterval;
 
             timer += (currentTime - lastTime);
             lastTime = currentTime;
 
-            if(delta >= 1) {
+
+            // UPDATE → 60 veces por segundo
+            if (deltaUpdate >= 1) {
                 update();
+                deltaUpdate--;
+                UPSCount++;
+                timer++;
+            }
+            // DRAW → 30 veces por segundo
+            if (deltaDraw >= 1) {
                 repaint();
-                delta--;
+                deltaDraw--;
                 drawCount++;
             }
 
-            //if(deltaMaps >= 1) {
-            //    deltaMaps--;
-            //    drawCountMaps++;
-            //}
-
-            if(timer >= 1000000000){
-                System.out.println("FPS user: " + drawCount);
-               // System.out.println("FPS maps: " + drawCountMaps);
-
-                //drawCountMaps = 0;
+            if(timer >= 60){
+                System.out.println("UPS FPS: " + UPSCount);
+                System.out.println("DRAW FPS: " + drawCount);
+                UPSCount = 0;
                 drawCount = 0;
                 timer = 0;
             }
@@ -154,19 +160,19 @@ public class GamePanel extends JPanel implements Runnable{
             // PLAYER
             player.update();
             //NPC
-            for (int i = 0; i < npc.length; i++) {
-                if (npc[i] != null){
-                    npc[i].update();
+            for (int i = 0; i < npc[1].length; i++) {
+                if (npc[currentMap][i] != null){
+                    npc[currentMap][i].update();
                 }
             }
-            for (int i = 0; i < monster.length; i++) {
-                if(monster[i] != null) {
-                    if (monster[i].alive && !monster[i].dying) {
-                        monster[i].update();
+            for (int i = 0; i < monster[1].length; i++) {
+                if(monster[currentMap][i] != null) {
+                    if (monster[currentMap][i].alive && !monster[currentMap][i].dying) {
+                        monster[currentMap][i].update();
                     }
-                    if (!monster[i].alive) {
-                        monster[i].checkDrop();
-                        monster[i] = null;
+                    if (!monster[currentMap][i].alive) {
+                        monster[currentMap][i].checkDrop();
+                        monster[currentMap][i] = null;
                     }
                 }
             }
@@ -190,9 +196,9 @@ public class GamePanel extends JPanel implements Runnable{
                     }
                 }
             }
-            for (int i = 0; i < iTile.length; i++) {
-                if (iTile[i] != null) {
-                    iTile[i].update();
+            for (int i = 0; i < iTile[1].length; i++) {
+                if (iTile[currentMap][i] != null) {
+                    iTile[currentMap][i].update();
                 }
             }
         }
@@ -222,28 +228,28 @@ public class GamePanel extends JPanel implements Runnable{
             tileM.draw(g2);
 
             // INTERACTIVE TILE
-            for (int i = 0; i < iTile.length; i++) {
-                if (iTile[i] != null) {
-                    iTile[i].draw(g2);
+            for (int i = 0; i < iTile[1].length; i++) {
+                if (iTile[currentMap][i] != null) {
+                    iTile[currentMap][i].draw(g2);
                 }
             }
 
             // ADD ENTITIES TO THE LIST
             entityList.add(player);
 
-            for (int i = 0; i < npc.length; i++) {
-                if(npc[i] != null) {
-                    entityList.add(npc[i]);
+            for (int i = 0; i < npc[1].length; i++) {
+                if(npc[currentMap][i] != null) {
+                    entityList.add(npc[currentMap][i]);
                 }
             }
-            for (int i = 0; i < obj.length; i++) {
-                if(obj[i] != null) {
-                    entityList.add(obj[i]);
+            for (int i = 0; i < obj[1].length; i++) {
+                if(obj[currentMap][i] != null) {
+                    entityList.add(obj[currentMap][i]);
                 }
             }
-            for (int i = 0; i < monster.length; i++) {
-                if(monster[i] != null) {
-                    entityList.add(monster[i]);
+            for (int i = 0; i < monster[1].length; i++) {
+                if(monster[currentMap][i] != null) {
+                    entityList.add(monster[currentMap][i]);
                 }
             }
             for (int i = 0; i < projectileList.size(); i++) {

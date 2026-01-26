@@ -12,8 +12,8 @@ import java.util.Random;
 public class NPC_OldMan extends Entity{
 
 
-    public NPC_OldMan(GamePanel gp) {
-        super(gp);
+    public NPC_OldMan(GamePanel gp, int col, int row) {
+        super(gp, col, row);
 
         direction = "down";
         speed = 1;

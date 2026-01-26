@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Entity {
 
@@ -68,11 +69,14 @@ public class Entity {
     public int wetDebuf = 1;
 
     // ITEM ATTRIBUTES
+    public ArrayList<Entity> inventory = new ArrayList<>();
+    public final int maxInventorySize = 20;
     public int value;
     public int attackValue;
     public int defenseValue;
     public String description = "";
     public int useCost;
+    public int price;
 
     // TYPE
     public int type;
@@ -85,9 +89,16 @@ public class Entity {
     public final int type_consumable = 6;
     public final int type_pickupOnly = 7;
 
-    public Entity(GamePanel gp){
+    public Entity(GamePanel gp, int col, int row){
+        this.gp = gp;
+        this.worldX = gp.tileSize * col;
+        this.worldY = gp.tileSize * row;
+    }
+
+    public Entity(GamePanel gp) {
         this.gp = gp;
     }
+
     public void speak(){
 
         if(dialogues[dialogueIndex] == null) {
@@ -117,11 +128,11 @@ public class Entity {
     public void checkDrop () {}
     public void dropItem (Entity droppedItem) {
 
-        for (int i = 0; i < gp.obj.length; i++) {
-            if (gp.obj[i] == null) {
-                gp.obj[i] = droppedItem;
-                gp.obj[i].worldX = worldX; // the dead monster's worldX
-                gp.obj[i].worldY = worldY; // the dead monster's worldY
+        for (int i = 0; i < gp.obj[1].length; i++) {
+            if (gp.obj[gp.currentMap][i] == null) {
+                gp.obj[gp.currentMap][i] = droppedItem;
+                gp.obj[gp.currentMap][i].worldX = worldX; // the dead monster's worldX
+                gp.obj[gp.currentMap][i].worldY = worldY; // the dead monster's worldY
                 break;
             }
         }
@@ -184,7 +195,7 @@ public class Entity {
             }
         }
         spriteCounter++;
-        if (spriteCounter > 10) {
+        if (spriteCounter > 24) {
             if (spriteNum == 1){
                 spriteNum = 2;
             }
