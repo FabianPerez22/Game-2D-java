@@ -24,6 +24,7 @@ public class EventHandler {
        // if(hit(27, 16, "right")) damagePit(gp.dialogueState);
         if(hit(27, 16, "right")) teleport(gp.dialogueState);
         if(hit(23, 12, "up")) healingPool(gp.dialogueState);
+        if(hit(23,16,"any")) wetGround();
 
     }
 
@@ -60,14 +61,25 @@ public class EventHandler {
 
         gp.gameState = gameState;
         gp.ui.currentDialogue = "You fall into a pit!";
+        gp.playSE(6);
         gp.player.life -= 1;
     }
     public void healingPool(int gameState) {
         if(gp.keyH.enterPressed) {
             gp.gameState = gameState;
-            gp.ui.currentDialogue = "You drink the water. \nYour life has been recovered!";
+            gp.player.attackCanceled = true;
+            gp.ui.currentDialogue = "You drink the water. \nYour life and mana has been recovered!";
+            gp.playSE(2);
             gp.player.life = gp.player.maxLife;
+            gp.player.mana = gp.player.maxMana;
+            gp.aSetter.setMonster();
         }
     }
 
+    public void wetGround() {
+        if (gp.player.wet && gp.player.wetCounter > 30){
+            gp.player.wetCounter = 30;
+        }
+        gp.player.wet = true;
+    }
 }
