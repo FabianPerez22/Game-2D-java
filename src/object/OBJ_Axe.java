@@ -18,6 +18,7 @@ public class OBJ_Axe extends Entity {
     public OBJ_Axe(GamePanel gp) {
         super(gp);
 
+        knockBackPower = 10;
         price = 5;
         type = type_axe;
         name = "Woodcutter's Axe";

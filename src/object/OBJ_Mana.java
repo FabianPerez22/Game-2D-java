@@ -30,9 +30,10 @@ public class OBJ_Mana extends Entity {
 
     }
 
-    public void use(Entity entity) {
+    public boolean use(Entity entity) {
         gp.playSE(2);
         entity.mana += value;
+        return true;
     }
 
 }

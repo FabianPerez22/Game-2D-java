@@ -19,15 +19,19 @@ public class AssetSetter {
         int i = 0;
         int mapNum = 0;
 
-        gp.obj[mapNum][i] = new OBJ_Key(gp, 25, 23); i++;
+        gp.obj[mapNum][i] = new OBJ_Chest(gp, 25, 23,new OBJ_Key(gp)); i++;
         gp.obj[mapNum][i] = new OBJ_Coin_Bronze(gp, 21, 19); i++;
         gp.obj[mapNum][i] = new OBJ_Key(gp, 26, 21); i++;
-        gp.obj[mapNum][i] = new OBJ_Axe(gp, 38, 10); i++;
-        gp.obj[mapNum][i] = new OBJ_Shield_Blue(gp, 35, 21); i++;
+        gp.obj[mapNum][i] = new OBJ_Potion_Red(gp, 38, 10); i++;
+        gp.obj[mapNum][i] = new OBJ_Potion_Red(gp, 35, 21); i++;
         gp.obj[mapNum][i] = new OBJ_Potion_Red(gp, 22, 27); i++;
-        gp.obj[mapNum][i] = new OBJ_Mana(gp, 22, 25); i++;
-        gp.obj[mapNum][i] = new OBJ_Heart(gp, 35, 20); i++;
-        gp.obj[mapNum][i] = new OBJ_Mana(gp, 22, 26); i++;
+        gp.obj[mapNum][i] = new OBJ_Potion_Red(gp, 22, 25); i++;
+        gp.obj[mapNum][i] = new OBJ_Potion_Red(gp, 35, 20); i++;
+        gp.obj[mapNum][i] = new OBJ_Lanter(gp, 22, 26); i++;
+
+        gp.obj[mapNum][i] = new OBJ_Door(gp, 14,28); i++;
+        gp.obj[mapNum][i] = new OBJ_Door(gp, 12, 12); i++;
+
 
 
     }

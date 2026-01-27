@@ -20,6 +20,7 @@ public class OBJ_Sword_Normal extends Entity {
         super(gp);
 
         price = 2;
+        knockBackPower = 2;
 
         type = type_sword;
         name = "Normal Sword";
