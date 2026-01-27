@@ -130,6 +130,17 @@ public class Player extends Entity{
             attackRight2 = setup("player/boy_axe_right_2", gp.tileSize*2, gp.tileSize);
         }
     }
+    public void getSleepingImage(BufferedImage image) {
+
+        up1 = image;
+        up2 = image;
+        down1 = image;
+        down2 = image;
+        left1 = image;
+        left2 = image;
+        right1 =image;
+        right2 =image;
+    }
     public void update() {
         if (attacking) {
             attacking();
@@ -266,6 +277,7 @@ public class Player extends Entity{
                 wetCounter = 0;
             }
         }
+        //LightDurations(currentLight);
 
         if (shotAvailableCounter < 30) {
             shotAvailableCounter++;
@@ -493,6 +505,24 @@ public class Player extends Entity{
                     else {
                         inventory.remove(itemIndex);
                     }
+                }
+            }
+        }
+    }
+    public void LightDurations(Entity object) {
+
+        // not complete
+        if (object != null) {
+            while (currentLight == object) {
+
+                lightCounter++;
+                System.out.println("Counter " + lightCounter);
+                System.out.println("object duration " + object.lightDuration);
+                if (lightCounter > object.lightDuration) {
+                    currentLight = null;
+                    object.use(this);
+                    lightCounter = 0;
+                    break;
                 }
             }
         }

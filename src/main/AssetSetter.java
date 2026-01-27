@@ -26,8 +26,8 @@ public class AssetSetter {
         gp.obj[mapNum][i] = new OBJ_Potion_Red(gp, 35, 21); i++;
         gp.obj[mapNum][i] = new OBJ_Potion_Red(gp, 22, 27); i++;
         gp.obj[mapNum][i] = new OBJ_Potion_Red(gp, 22, 25); i++;
-        gp.obj[mapNum][i] = new OBJ_Potion_Red(gp, 35, 20); i++;
-        gp.obj[mapNum][i] = new OBJ_Lanter(gp, 22, 26); i++;
+        gp.obj[mapNum][i] = new OBJ_Tent(gp, 35, 20); i++;
+        gp.obj[mapNum][i] = new OBJ_Tent(gp, 22, 26); i++;
 
         gp.obj[mapNum][i] = new OBJ_Door(gp, 14,28); i++;
         gp.obj[mapNum][i] = new OBJ_Door(gp, 12, 12); i++;

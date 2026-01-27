@@ -86,6 +86,7 @@ public class Entity {
     public boolean stackable = false;
     public int amount = 1;
     public int lightRadius;
+    public int lightDuration;
 
     // TYPE
     public int type;

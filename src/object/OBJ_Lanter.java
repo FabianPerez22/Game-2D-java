@@ -15,6 +15,7 @@ public class OBJ_Lanter extends Entity {
         description = "[Lantern]n\nIlluminates your surroundings.";
         price = 200;
         lightRadius = 400;
+        lightDuration = 120;
     }
 
 
@@ -27,5 +28,9 @@ public class OBJ_Lanter extends Entity {
         description = "[Lantern]n\nIlluminates your \nsurroundings.";
         price = 200;
         lightRadius = 400;
+    }
+
+    public boolean use (Entity entity) {
+        return  true;
     }
 }
