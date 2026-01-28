@@ -3,6 +3,7 @@ package main;
 import entity.NPC_Merchant;
 import entity.NPC_OldMan;
 import main.tile_interactive.IT_DryTree;
+import monster.MOM_Orc;
 import monster.MON_GreenSlime;
 import object.*;
 
@@ -30,7 +31,7 @@ public class AssetSetter {
         gp.obj[mapNum][i] = new OBJ_Tent(gp, 22, 26); i++;
 
         gp.obj[mapNum][i] = new OBJ_Door(gp, 14,28); i++;
-        gp.obj[mapNum][i] = new OBJ_Door(gp, 12, 12); i++;
+        gp.obj[mapNum][i] = new OBJ_Axe(gp, 71,90); i++;
 
 
 
@@ -54,6 +55,11 @@ public class AssetSetter {
         gp.monster[mapNum][i] = new MON_GreenSlime(gp,23,37); i++;
         gp.monster[mapNum][i] = new MON_GreenSlime(gp,23,35); i++;
         gp.monster[mapNum][i] = new MON_GreenSlime(gp,22,35); i++;
+
+
+        gp.monster[mapNum][i] = new MOM_Orc(gp,71,90); i++;
+        //gp.monster[mapNum][i] = new MON_GreenSlime(gp,71,90); i++;
+        //gp.monster[mapNum][i] = new MON_GreenSlime(gp,73,90); i++;
     }
 
     public void setInteractiveTile() {

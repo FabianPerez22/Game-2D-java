@@ -14,6 +14,10 @@ public class OBJ_Axe extends Entity {
         attackValue = 2;
         attackArea.width = 30;
         attackArea.height = 30;
+
+        knockBackPower = 4;
+        motion1_duration = 20;
+        motion2_duration = 40;
     }
     public OBJ_Axe(GamePanel gp) {
         super(gp);
