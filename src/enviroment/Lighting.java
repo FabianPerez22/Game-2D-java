@@ -78,6 +78,10 @@ public class Lighting {
 
         g2.dispose();
     }
+    public void resetDay() {
+        dayState = day;
+        filterAlpha = 0f;
+    }
     public void update() {
         if (gp.player.lightUpdated) {
             setLightSource();
@@ -131,6 +135,6 @@ public class Lighting {
         g2.setColor(Color.white);
         g2.setFont(g2.getFont().deriveFont(50f));
         g2.drawString(situation, 800, 500);
-
     }
+
 }

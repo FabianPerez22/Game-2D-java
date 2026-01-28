@@ -1,9 +1,10 @@
 package object;
 
 import entity.Entity;
+import EntityFactory.EntityFactory;
 import main.GamePanel;
 
-public class OBJ_Key  extends Entity {
+public class OBJ_Key  extends Entity{
 
     GamePanel gp;
     public OBJ_Key(GamePanel gp, int col, int row) {

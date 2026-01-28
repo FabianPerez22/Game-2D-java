@@ -1,6 +1,7 @@
 package object;
 
 import entity.Entity;
+import EntityFactory.EntityFactory;
 import main.GamePanel;
 
 public class OBJ_Shield_wood extends Entity {
@@ -24,4 +25,5 @@ public class OBJ_Shield_wood extends Entity {
         down1 = setup("objects/shield_wood", gp.tileSize, gp.tileSize);
         defenseValue = 1;
     }
+
 }

@@ -22,9 +22,10 @@ public class MOM_Orc extends Entity {
         speed = defaultSpeed;
         maxLife = 15;
         life = maxLife;
-        attack = 1;
+        attack = 3;
         defense = 0;
         exp = 10;
+        knockBackPower = 10;
 
         solidArea.x = 4;
         solidArea.y = 4;
@@ -35,7 +36,7 @@ public class MOM_Orc extends Entity {
         attackArea.width = 48;
         attackArea.height = 48;
         motion1_duration = 40;
-        motion1_duration = 85;
+        motion2_duration = 85;
 
         getImage();
         getAttackImage();

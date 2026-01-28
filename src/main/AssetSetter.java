@@ -20,19 +20,18 @@ public class AssetSetter {
         int i = 0;
         int mapNum = 0;
 
-        gp.obj[mapNum][i] = new OBJ_Chest(gp, 25, 23,new OBJ_Key(gp)); i++;
-        gp.obj[mapNum][i] = new OBJ_Coin_Bronze(gp, 21, 19); i++;
-        gp.obj[mapNum][i] = new OBJ_Key(gp, 26, 21); i++;
-        gp.obj[mapNum][i] = new OBJ_Potion_Red(gp, 38, 10); i++;
-        gp.obj[mapNum][i] = new OBJ_Potion_Red(gp, 35, 21); i++;
-        gp.obj[mapNum][i] = new OBJ_Potion_Red(gp, 22, 27); i++;
-        gp.obj[mapNum][i] = new OBJ_Potion_Red(gp, 22, 25); i++;
-        gp.obj[mapNum][i] = new OBJ_Tent(gp, 35, 20); i++;
-        gp.obj[mapNum][i] = new OBJ_Tent(gp, 22, 26); i++;
+
 
         gp.obj[mapNum][i] = new OBJ_Door(gp, 14,28); i++;
         gp.obj[mapNum][i] = new OBJ_Axe(gp, 71,90); i++;
 
+        gp.obj[mapNum][i] = new OBJ_Tent(gp, 70,91); i++;
+        gp.obj[mapNum][i] = new OBJ_Potion_Red(gp, 71,92); i++;
+        gp.obj[mapNum][i] = new OBJ_Potion_Red(gp, 71,88); i++;
+        gp.obj[mapNum][i] = new OBJ_Shield_Blue(gp, 70,88); i++;
+        gp.obj[mapNum][i] = new OBJ_Chest(gp, 70,89);
+        gp.obj[mapNum][i].loot = new OBJ_Key(gp);
+        i++;
 
 
     }
@@ -57,9 +56,11 @@ public class AssetSetter {
         gp.monster[mapNum][i] = new MON_GreenSlime(gp,22,35); i++;
 
 
-        gp.monster[mapNum][i] = new MOM_Orc(gp,71,90); i++;
-        //gp.monster[mapNum][i] = new MON_GreenSlime(gp,71,90); i++;
-        //gp.monster[mapNum][i] = new MON_GreenSlime(gp,73,90); i++;
+        //gp.monster[mapNum][i] = new MOM_Orc(gp,71,90); i++;
+        gp.monster[mapNum][i] = new MON_GreenSlime(gp,71,90); i++;
+        gp.monster[mapNum][i] = new MON_GreenSlime(gp,73,90); i++;
+        gp.monster[mapNum][i] = new MON_GreenSlime(gp,72,90); i++;
+        gp.monster[mapNum][i] = new MON_GreenSlime(gp,73,91); i++;
     }
 
     public void setInteractiveTile() {

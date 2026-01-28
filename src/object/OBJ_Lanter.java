@@ -1,6 +1,7 @@
 package object;
 
 import entity.Entity;
+import EntityFactory.EntityFactory;
 import main.GamePanel;
 
 public class OBJ_Lanter extends Entity {
@@ -10,7 +11,7 @@ public class OBJ_Lanter extends Entity {
         super(gp, col, row);
 
         type = type_light;
-        name = "Lantern";
+        name = "Lanter";
         down1 = setup("objects/lantern", gp.tileSize, gp.tileSize);
         description = "[Lantern]n\nIlluminates your surroundings.";
         price = 200;
@@ -28,6 +29,7 @@ public class OBJ_Lanter extends Entity {
         description = "[Lantern]n\nIlluminates your \nsurroundings.";
         price = 200;
         lightRadius = 400;
+        lightDuration = 120;
     }
 
     public boolean use (Entity entity) {

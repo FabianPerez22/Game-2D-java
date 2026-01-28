@@ -40,6 +40,10 @@ public class Entity {
     public boolean knockBack = false;
     public String knockBackDirection;
     public boolean guarding = false;
+    public boolean transparent = false;
+    public boolean offBalance = false;
+    public Entity loot;
+    public boolean opened = false;
 
     // COUNTER
     public int spriteCounter = 0;
@@ -51,6 +55,8 @@ public class Entity {
     int hpBarCounter = 0;
     public int knockBackCounter = 0;
     public int lightCounter = 0;
+    public int guardCounter = 0;
+    int offBalanceCounter = 0;
 
     // CHARACTER ATRIBUTES
     public String name;
@@ -112,11 +118,10 @@ public class Entity {
         this.worldX = gp.tileSize * col;
         this.worldY = gp.tileSize * row;
     }
-
     public Entity(GamePanel gp) {
         this.gp = gp;
     }
-
+    public void setLoot(Entity loot){}
     public void speak(){
 
         if(dialogues[dialogueIndex] == null) {
@@ -302,6 +307,13 @@ public class Entity {
         if (shotAvailableCounter < 30) {
             shotAvailableCounter++;
         }
+        if (offBalance) {
+            offBalanceCounter++;
+            if (offBalanceCounter > 120) {
+                offBalance = false;
+                offBalanceCounter = 0;
+            }
+        }
     }
     public void checkStopChasingOrNot(Entity target, int distance, int rate) {
         if (getTileDistance(target) > distance) {
@@ -447,16 +459,50 @@ public class Entity {
     }
     public void damagePlayer(int attack) {
         if(!gp.player.invincible) {
-            gp.playSE(6);
 
             int damage = attack - gp.player.defense;
-            if (damage < 0) {
-                damage = 1;
+
+            // Get an opposite direction of this attacker
+            String canGuardDirection = getOppositeDirection(direction);
+
+            if (gp.player.guarding && gp.player.direction.equals(canGuardDirection)) {
+                //Parry
+                if (gp.player.guardCounter < 10) {
+                    damage = 0;
+                    gp.playSE(18);
+                    setKnockBack(this, gp.player,knockBackPower);
+                    offBalance = true;
+                    spriteCounter =- 60;
+                } else {
+                    damage /= 3;
+                    gp.playSE(17);
+                }
+            }
+            else {
+                gp.playSE(6);
+                if (damage < 1) {
+                    damage = 1;
+                }
+            }
+
+            if (damage != 0) {
+                gp.player.transparent = true;
+                setKnockBack(gp.player, this, knockBackPower);
             }
 
             gp.player.life -= damage;
             gp.player.invincible = true;
         }
+    }
+    public String getOppositeDirection(String direction) {
+        String oppositeDirection = "";
+        switch (direction){
+            case "up": oppositeDirection = "down"; break;
+            case "down": oppositeDirection = "up"; break;
+            case "left": oppositeDirection = "right"; break;
+            case "right": oppositeDirection = "left"; break;
+        }
+        return oppositeDirection;
     }
     public void setKnockBack(Entity target,Entity attacker,  int knockBackPower) {
 
@@ -670,10 +716,10 @@ public class Entity {
         int nextWorldY = user.getTopY();
 
         switch (user.direction){
-            case "up": nextWorldY = user.getTopY()-1; break;
-            case "down": nextWorldY = user.getBottomY()+1; break;
-            case "left": nextWorldX = user.getLeftX()-1; break;
-            case "right": nextWorldX = user.getRightX()+1; break;
+            case "up": nextWorldY = user.getTopY()-gp.player.speed; break;
+            case "down": nextWorldY = user.getBottomY()+gp.player.speed; break;
+            case "left": nextWorldX = user.getLeftX()-gp.player.speed; break;
+            case "right": nextWorldX = user.getRightX()+gp.player.speed; break;
         }
 
         int col = nextWorldX/gp.tileSize;

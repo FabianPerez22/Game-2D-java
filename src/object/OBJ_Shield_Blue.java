@@ -1,14 +1,15 @@
 package object;
 
 import entity.Entity;
+import EntityFactory.EntityFactory;
 import main.GamePanel;
 
-public class OBJ_Shield_Blue extends Entity {
+public class OBJ_Shield_Blue extends Entity  {
 
 
     public OBJ_Shield_Blue(GamePanel gp, int col, int row) {
         super(gp, col, row);
-
+        price = 19;
         type = type_shield;
         name = "Blue Shield";
         description = "["+ name +"]\n A shiny blue shield";
@@ -24,5 +25,4 @@ public class OBJ_Shield_Blue extends Entity {
         down1 = setup("objects/shield_blue", gp.tileSize, gp.tileSize);
         defenseValue = 2;
     }
-
 }

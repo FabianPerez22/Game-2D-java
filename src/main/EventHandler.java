@@ -56,7 +56,7 @@ public class EventHandler {
 
         if (canTouchEvent) {
             if(hit(0,27, 16, "right")) damagePit(gp.dialogueState);
-            else if(hit(0,23, 12, "up")) healingPool(gp.dialogueState);
+            else if(hit(0,88,74, "up")) healingPool(gp.dialogueState);
             else if(hit(0,23,16,"any")) wetGround();
             else if(hit(0,10, 39, "any")) teleport(1,12,13);
             else if(hit(1,12,13, "any")) teleport(0,10, 39);
@@ -110,11 +110,12 @@ public class EventHandler {
         if(gp.keyH.enterPressed) {
             gp.gameState = gameState;
             gp.player.attackCanceled = true;
-            gp.ui.currentDialogue = "You drink the water. \nYour life and mana has been recovered!";
+            gp.ui.currentDialogue = "The game was save, all status has been recovered";
             gp.playSE(2);
             gp.player.life = gp.player.maxLife;
             gp.player.mana = gp.player.maxMana;
             gp.aSetter.setMonster();
+            gp.saveLoad.save();
         }
     }
     public void speak(Entity entity) {

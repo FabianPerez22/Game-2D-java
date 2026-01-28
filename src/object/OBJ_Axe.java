@@ -1,9 +1,10 @@
 package object;
 
 import entity.Entity;
+import EntityFactory.EntityFactory;
 import main.GamePanel;
 
-public class OBJ_Axe extends Entity {
+public class OBJ_Axe extends Entity{
     public OBJ_Axe(GamePanel gp, int col, int row) {
         super(gp, col, row);
 
@@ -14,15 +15,14 @@ public class OBJ_Axe extends Entity {
         attackValue = 2;
         attackArea.width = 30;
         attackArea.height = 30;
-
-        knockBackPower = 4;
+        price = 5;
+        knockBackPower = 10;
         motion1_duration = 20;
         motion2_duration = 40;
     }
     public OBJ_Axe(GamePanel gp) {
         super(gp);
 
-        knockBackPower = 10;
         price = 5;
         type = type_axe;
         name = "Woodcutter's Axe";
@@ -31,5 +31,7 @@ public class OBJ_Axe extends Entity {
         attackValue = 2;
         attackArea.width = 30;
         attackArea.height = 30;
+        motion1_duration = 20;
+        motion2_duration = 40;
     }
 }

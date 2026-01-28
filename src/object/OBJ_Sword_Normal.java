@@ -1,9 +1,10 @@
 package object;
 
 import entity.Entity;
+import EntityFactory.EntityFactory;
 import main.GamePanel;
 
-public class OBJ_Sword_Normal extends Entity {
+public class OBJ_Sword_Normal extends Entity{
 
     public OBJ_Sword_Normal(GamePanel gp, int col, int row) {
         super(gp, col, row);
@@ -15,7 +16,6 @@ public class OBJ_Sword_Normal extends Entity {
         attackValue = 1;
         attackArea.width = 36;
         attackArea.height = 36;
-
         knockBackPower = 2;
         motion1_duration = 10;
         motion2_duration = 25;
@@ -33,7 +33,6 @@ public class OBJ_Sword_Normal extends Entity {
         attackValue = 1;
         attackArea.width = 36;
         attackArea.height = 36;
-
         knockBackPower = 2;
         motion1_duration = 10;
         motion2_duration = 25;

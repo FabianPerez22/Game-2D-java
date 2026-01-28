@@ -1,6 +1,7 @@
 package object;
 
 import entity.Entity;
+import EntityFactory.EntityFactory;
 import main.GamePanel;
 
 public class OBJ_Potion_Red extends Entity {
