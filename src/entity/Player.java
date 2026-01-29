@@ -38,17 +38,19 @@ public class Player extends Entity{
     public void setDefaultValues() {
 
         //center map
-       //worldX = gp.tileSize * 88;
-       //worldY = gp.tileSize * 76;
+        //worldX = gp.tileSize * 88;
+        //worldY = gp.tileSize * 76;
+        worldX = gp.tileSize * 54;
+        worldY = gp.tileSize * 15;
 
-        worldX = gp.tileSize * 10;
-        worldY = gp.tileSize * 36;
+       // worldX = gp.tileSize * 10;
+       // worldY = gp.tileSize * 36;
 
         // merchant map
         //worldX = gp.tileSize * 10;
         //worldY = gp.tileSize * 40;
 
-        defaultSpeed = 4;
+        defaultSpeed = 6;
         speed = defaultSpeed;
         direction = "down";
 
@@ -56,7 +58,7 @@ public class Player extends Entity{
         level = 1;
         maxLife = 6;
         life = maxLife;
-        maxMana = 4;
+        maxMana = 3;
         mana = maxMana;
         ammo = 10;
         strength = 1; // The more trength he has, the more damage he gives.
@@ -100,8 +102,6 @@ public class Player extends Entity{
         inventory.clear();
         inventory.add(currentWeapon);
         inventory.add(currentShield);
-        inventory.add(new OBJ_Lanter(gp));
-        inventory.add(new OBJ_Key(gp));
     }
     public int getAttack() {
         attackArea = currentWeapon.attackArea;
@@ -247,7 +247,9 @@ public class Player extends Entity{
 
             // CHECK TILE COLLISION
             collisionOn = false;
-            gp.cChecker.checkTile(this);
+            if (!keyH.godModeOn){
+                gp.cChecker.checkTile(this);
+            }
 
             // CHECK OBJECT COLLISION
             int objectIndex = gp.cChecker.checkObject(this, true);
@@ -505,7 +507,7 @@ public class Player extends Entity{
         dialogues[0][0] = "You are level " + level + " now! You feel more stronger";
     }
     public void checkLevelUp() {
-        if (exp >= nextLevelExp) {
+        while (exp >= nextLevelExp) {
             level++;
             nextLevelExp = nextLevelExp*2;
             maxLife += 2;

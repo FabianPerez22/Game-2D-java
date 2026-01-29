@@ -81,7 +81,7 @@ public class MOM_Orc extends Entity {
         }
         // check if it attacks
         if (!attacking) {
-            checkAttackOrNot(30,gp.tileSize*4, gp.tileSize);
+            checkAttackOrNot(45,gp.tileSize*2, gp.tileSize);
         }
     }
     public void damageReaction() {

@@ -1,10 +1,7 @@
 package entity;
 
 import main.GamePanel;
-import object.OBJ_Axe;
-import object.OBJ_Key;
-import object.OBJ_Potion_Red;
-import object.OBJ_Shield_Blue;
+import object.*;
 
 public class NPC_Merchant extends Entity{
 
@@ -49,12 +46,11 @@ public class NPC_Merchant extends Entity{
         inventory.add(new OBJ_Potion_Red(gp));
         inventory.add(new OBJ_Key(gp));
         inventory.add(new OBJ_Axe(gp));
-        inventory.add(new OBJ_Potion_Red(gp));
+        inventory.add(new OBJ_Lanter(gp));
         inventory.add(new OBJ_Shield_Blue(gp));
     }
 
     public void speak() {
-
         gp.gameState = gp.tradeState;
         gp.ui.npc = this;
     }

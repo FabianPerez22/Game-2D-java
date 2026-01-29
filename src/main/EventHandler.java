@@ -64,13 +64,44 @@ public class EventHandler {
             else if(hit(0,23,16,"any")) wetGround();
             else if(hit(0,53,15, "any")) teleport(1,51,44, gp.indoor); // Merchant hause go in
             else if(hit(1,51,45, "any")) teleport(0,53,15, gp.outside);
-            else if(hit(1,51,42, "up")) speak(gp.npc[1][0]);
+            else if(hit(1,51,42, "up")) speak(gp.npc[1][1]);
+            else if(hit(1,53, 44,"any")) messageConvenient(gp.dialogueState);
+
 
             else if(hit(0,1,32, "any")) teleport(2,40,77, gp.dungeon); // first mine, go in
             else if(hit(2,39,77, "any")) teleport(0,1,32, gp.outside); // go outside
 
             else if(hit(2,78,62, "any")) teleport(3,58,72,gp.dungeon); // second mine go in
             else if(hit(3,57,72, "any")) teleport(2,78,62,gp.dungeon); // go outside the second mine
+
+            else if(hit(3,59,72,"any")) wetGround();
+            else if(hit(3,59,73,"any")) wetGround();
+            else if(hit(3,59,74,"any")) wetGround();
+            else if(hit(3,59,75,"any")) wetGround();
+
+            else if(hit(3,57,59,"any")) wetGround();
+            else if(hit(3,57,58,"any")) wetGround();
+            else if(hit(3,57,57,"any")) wetGround();
+            else if(hit(3,58,59,"any")) wetGround();
+            else if(hit(3,58,58,"any")) wetGround();
+            else if(hit(3,58,57,"any")) wetGround();
+
+            else if(hit(3,65,48,"any")) wetGround();
+            else if(hit(3,66,44,"any")) wetGround();
+            else if(hit(3,76,46,"any")) wetGround();
+
+            else if(hit(3,82, 60,"any")) wetGround();
+
+            else if(hit(3,85,72,"any")) wetGround();
+
+            else if(hit(3,68, 74,"any")) wetGround();
+            else if(hit(3,69, 74,"any")) wetGround();
+
+            else if(hit(3,61, 77,"any")) wetGround();
+            else if(hit(3,62, 77,"any")) wetGround();
+
+            else if(hit(3,87, 62,"any")) messageConvenient(gp.dialogueState);
+
         }
     }
 
@@ -102,6 +133,8 @@ public class EventHandler {
         eventMaster.dialogues[0][0] = "You fall into a pit!";
         eventMaster.dialogues[1][0] = "The game was save, all status has been recovered";
         eventMaster.dialogues[1][1] = "Damn, this is good water";
+        eventMaster.dialogues[2][0] = "What are u doing here? This's not done and idk if it'll be..";
+
     }
     public void teleport(int map, int col, int row, int area) {
 
@@ -119,6 +152,13 @@ public class EventHandler {
         eventMaster.startDialogue(eventMaster, 0);
         gp.playSE(6);
         gp.player.life -= 1;
+        canTouchEvent = false;
+    }
+    public void messageConvenient(int gameState) {
+
+        gp.gameState = gameState;
+        eventMaster.startDialogue(eventMaster, 2);
+        gp.playSE(6);
         canTouchEvent = false;
     }
     public void healingPool(int gameState) {

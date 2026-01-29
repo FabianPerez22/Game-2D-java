@@ -22,11 +22,11 @@ public class MOM_RedSlime extends Entity {
 
         type = type_monster;
         name = "Red Slime";
-        defaultSpeed = 2;
+        defaultSpeed = 1;
         speed = defaultSpeed;
-        maxLife = 8;
+        maxLife = 5;
         life = maxLife;
-        attack = 5;
+        attack = 2;
         defense = 1;
         exp = 2;
         projectile = new OBJ_Rock(gp);
@@ -55,7 +55,7 @@ public class MOM_RedSlime extends Entity {
     public void setAction() {
         if (onPath) {
             // Check if it stops chasing
-            checkStopChasingOrNot(gp.player, 10, 100);
+            //checkStopChasingOrNot(gp.player, 10, 100);
 
             // Search the direction to go
             searchPath(getGoalCol(gp.player), getGoalRow(gp.player));
@@ -81,7 +81,7 @@ public class MOM_RedSlime extends Entity {
         int i = new Random().nextInt(100) +1;
 
         // SET THE MONSTER DROP
-        if (i < 10) {
+        if (i < 70) {
             dropItem(new OBJ_Coin_Bronze(gp));
         }
     }

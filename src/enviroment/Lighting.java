@@ -91,7 +91,7 @@ public class Lighting {
         // Check the state of the day
         if (dayState == day) {
             dayCounter++;
-            if (dayCounter > 3000) {
+            if (dayCounter > 10000) {
                 dayState = dusk;
                 dayCounter = 0;
             }
