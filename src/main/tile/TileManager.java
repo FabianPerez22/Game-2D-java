@@ -26,7 +26,7 @@ public class TileManager {
         this.gp = gp;
 
         // READ TILE DATA FILE
-        InputStream is = getClass().getResourceAsStream("/res/maps/tiledatas.txt");
+        InputStream is = getClass().getResourceAsStream("/res/maps/tiledatasv2.txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
         // GETTING TILE NAMES AND COLLISION INFO FROM THE FILE
@@ -67,9 +67,9 @@ public class TileManager {
         }
 
         loadMap("/res/maps/customMapV1.txt", 0);
+        loadMap("/res/maps/merchantMap.txt", 1);
+        loadMap("/res/maps/secondMine.txt", 2);
 
-        //loadMap("/res/maps/worldV3.txt", 0);
-        //loadMap("/res/maps/interior01.txt", 1);
     }
 
     public void getTileImage() {
@@ -132,6 +132,7 @@ public class TileManager {
             br.close();
 
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
     public void draw(Graphics2D g2) {

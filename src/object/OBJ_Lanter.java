@@ -5,13 +5,12 @@ import EntityFactory.EntityFactory;
 import main.GamePanel;
 
 public class OBJ_Lanter extends Entity {
-
-
+    public static final String objName = "Lanter";
     public OBJ_Lanter(GamePanel gp, int col, int row) {
         super(gp, col, row);
 
         type = type_light;
-        name = "Lanter";
+        name = objName;
         down1 = setup("objects/lantern", gp.tileSize, gp.tileSize);
         description = "[Lantern]n\nIlluminates your surroundings.";
         price = 200;
@@ -24,7 +23,7 @@ public class OBJ_Lanter extends Entity {
         super(gp);
 
         type = type_light;
-        name = "Lantern";
+        name = objName;
         down1 = setup("objects/lantern", gp.tileSize, gp.tileSize);
         description = "[Lantern]n\nIlluminates your \nsurroundings.";
         price = 200;

@@ -132,9 +132,8 @@ public class KeyHandler implements KeyListener {
         }
         if(code == KeyEvent.VK_R){
             switch (gp.currentMap){
-
-                case 0: gp.tileM.loadMap("/res/maps/worldV3.txt", 0);
-                case 1: gp.tileM.loadMap("/res/maps/interior01.txt", 1);
+                // Nothing for no, ex us:
+                //case 1: gp.tileM.loadMap("/res/maps/mapname.txt", 1);
             }
         }
     }
@@ -145,7 +144,7 @@ public class KeyHandler implements KeyListener {
     }
     public void dialogueState(int code) {
         if(code == KeyEvent.VK_ENTER) {
-            gp.gameState = gp.playState;
+            enterPressed = true;
         }
     }
     public void optionState(int code) {

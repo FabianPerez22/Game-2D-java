@@ -38,8 +38,11 @@ public class Player extends Entity{
     public void setDefaultValues() {
 
         //center map
-       worldX = gp.tileSize * 88;
-       worldY = gp.tileSize * 76;
+       //worldX = gp.tileSize * 88;
+       //worldY = gp.tileSize * 76;
+
+        worldX = gp.tileSize * 10;
+        worldY = gp.tileSize * 36;
 
         // merchant map
         //worldX = gp.tileSize * 10;
@@ -72,6 +75,8 @@ public class Player extends Entity{
         getAttackImage();
         getGuardImage();
         setItems();
+        setDialogue();
+
     }
     public void setDefaultPositions() {
         worldX = gp.tileSize *  88;
@@ -263,6 +268,9 @@ public class Player extends Entity{
                 gp.playSE(7);
                 attacking = true;
                 spriteCounter = 0;
+
+                // DECREASED DURABILITY
+                currentWeapon.durabilidy -= 0.2;
             }
 
             attackCanceled = false;
@@ -408,7 +416,6 @@ public class Player extends Entity{
         if (gp.keyH.enterPressed) {
             if(i != 999){
                 attackCanceled = true;
-                gp.gameState = gp.dialogueState;
                 gp.npc[gp.currentMap][i].speak();
             }
         }
@@ -478,6 +485,9 @@ public class Player extends Entity{
             }
         }
     }
+    public void setDialogue() {
+        dialogues[0][0] = "You are level " + level + " now! You feel more stronger";
+    }
     public void checkLevelUp() {
         if (exp >= nextLevelExp) {
             level++;
@@ -487,10 +497,12 @@ public class Player extends Entity{
             dexterity++;
             attack = getAttack();
             defense = getDefense();
-
+            setDialogue();
             gp.playSE(9);
             gp.gameState = gp.dialogueState;
-            gp.ui.currentDialogue = "You are level " + level + " now!\n You feel more stronger";
+
+
+            startDialogue(this,0);
         }
     }
     public void selectItem() {
@@ -564,10 +576,11 @@ public class Player extends Entity{
     public boolean canObtainItem(Entity item) {
 
         boolean canObtain = false;
+        Entity newItem = gp.eGenerator.getObject(item.name);
 
         // CHECK IF STACKABLE
-        if (item.stackable) {
-            int index =  searchItemInInventory(item.name);
+        if (newItem.stackable) {
+            int index =  searchItemInInventory(newItem.name);
 
             if (index != 999) {
                 inventory.get(index).amount++;
@@ -576,7 +589,7 @@ public class Player extends Entity{
             else {
                 // New Item so need to check vacany
                 if(inventory.size() != maxInventorySize){
-                    inventory.add(item);
+                    inventory.add(newItem);
                     canObtain = true;
                 }
             }
@@ -584,7 +597,7 @@ public class Player extends Entity{
         else {
             // NOT STACKABLE so check vacancy
             if(inventory.size() != maxInventorySize){
-                inventory.add(item);
+                inventory.add(newItem);
                 canObtain = true;
             }
         }

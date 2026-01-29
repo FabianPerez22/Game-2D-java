@@ -1,5 +1,6 @@
 package entity;
 
+import EntityFactory.EntityGenerator;
 import main.GamePanel;
 import main.UtilityTool;
 
@@ -19,8 +20,8 @@ public class Entity {
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
     public Rectangle attackArea = new Rectangle(0,0,0,0);
     public int solidAreaDefaultX, solidAreaDefaultY;
-    String dialogues[] = new String[20];
-    int dialogueIndex = 0;
+    public String dialogues[][] = new String[30][30];
+    public int dialogueIndex = 0;
     public BufferedImage image, image2, image3;
     public Entity attacker;
 
@@ -28,6 +29,7 @@ public class Entity {
     public int worldX, worldY;
     public String direction = "down";
     public int spriteNum = 1;
+    public int dialogueSet = 0;
     public boolean collisionOn = false;
     public boolean invincible = false;
     public boolean collision = false;
@@ -51,12 +53,12 @@ public class Entity {
     public int invincibleCounter = 0;
     public int shotAvailableCounter = 0;
     public int wetCounter = 0;
-    int dyingCounter = 0;
-    int hpBarCounter = 0;
+    int        dyingCounter = 0;
+    int        hpBarCounter = 0;
     public int knockBackCounter = 0;
     public int lightCounter = 0;
     public int guardCounter = 0;
-    int offBalanceCounter = 0;
+    int        offBalanceCounter = 0;
 
     // CHARACTER ATRIBUTES
     public String name;
@@ -99,6 +101,7 @@ public class Entity {
     public int amount = 1;
     public int lightRadius;
     public int lightDuration;
+    public double durabilidy = 100;
 
     // TYPE
     public int type;
@@ -122,14 +125,8 @@ public class Entity {
         this.gp = gp;
     }
     public void setLoot(Entity loot){}
-    public void speak(){
-
-        if(dialogues[dialogueIndex] == null) {
-            dialogueIndex = 0;
-        }
-        gp.ui.currentDialogue = dialogues[dialogueIndex];
-        dialogueIndex++;
-
+    public void speak(){}
+    public void facePlayer() {
         switch (gp.player.direction) {
             case "up":
                 direction = "down";
@@ -144,6 +141,11 @@ public class Entity {
                 direction = "left";
                 break;
         }
+    }
+    public void startDialogue(Entity entity, int setNumber) {
+        gp.gameState = gp.dialogueState;
+        gp.ui.npc = entity;
+        dialogueSet = setNumber;
     }
     public void interact() {
 
@@ -184,6 +186,20 @@ public class Entity {
     public void setAction(){}
     public void damageReaction() {}
     public boolean use(Entity entity) { return false;}
+    public void resetCounter() {
+        spriteCounter = 0;
+        actionLockCounter = 0;
+        invincibleCounter = 0;
+        shotAvailableCounter = 0;
+        wetCounter = 0;
+        dyingCounter = 0;
+        hpBarCounter = 0;
+        knockBackCounter = 0;
+        lightCounter = 0;
+        guardCounter = 0;
+        offBalanceCounter = 0;
+    }
+    public void getDialogue(){}
     public void checkDrop () {}
     public void dropItem (Entity droppedItem) {
 

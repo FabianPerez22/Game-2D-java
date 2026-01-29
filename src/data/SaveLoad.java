@@ -9,15 +9,13 @@ import java.io.*;
 
 public class SaveLoad {
     GamePanel gp;
-    EntityGenerator entityGenerator;
 
     public SaveLoad(GamePanel gp){
         this.gp = gp;
-        this.entityGenerator = new EntityGenerator();
     }
 
     public Entity getObject(String itemName) {
-        return entityGenerator.getObject(itemName, gp);
+        return gp.eGenerator.getObject(itemName);
     }
 
     public void save() {
@@ -75,7 +73,7 @@ public class SaveLoad {
             // WRITE THE DATASORAGE OBJECT
             oos.writeObject(ds);
         } catch (Exception e) {
-            System.out.println("Save Exception!");
+            System.out.println("Save Exception! " + e);
         }
     }
     public void load() {
@@ -124,6 +122,7 @@ public class SaveLoad {
 
                         if (ds.mapObjectLootNames != null){
                             gp.obj[mapNum][i].loot = getObject(ds.mapObjectLootNames[mapNum][i]);
+                            gp.obj[mapNum][i].getDialogue();
                         }
                         gp.obj[mapNum][i].opened = ds.mapObjectOpened[mapNum][i];
                         if (gp.obj[mapNum][i].opened) {
@@ -135,7 +134,7 @@ public class SaveLoad {
 
 
         } catch (Exception e) {
-            System.out.println("Load Exception!");
+            System.out.println("Load Exception! " + e);
         }
     }
 }

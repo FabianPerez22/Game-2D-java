@@ -1,5 +1,6 @@
 package main;
 
+import EntityFactory.EntityGenerator;
 import ai.PathFinder;
 import data.SaveLoad;
 import entity.Entity;
@@ -51,6 +52,7 @@ public class GamePanel extends JPanel implements Runnable{
     public PathFinder pFinder = new PathFinder(this);
     SaveLoad saveLoad = new SaveLoad(this);
     EnviromentManager eManager = new EnviromentManager(this);
+    public EntityGenerator eGenerator = new EntityGenerator(this);
     Thread gameThread;
 
     // ENTITY AND OBJECT
@@ -76,6 +78,13 @@ public class GamePanel extends JPanel implements Runnable{
     public final int tradeState = 8;
     public final int sleepState = 9;
 
+    // AREA
+    public int currentArea;
+    public int nextArea;
+    public final int outside = 50;
+    public final int indoor = 51;
+    public final int dungeon = 52;
+
     public GamePanel () {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
@@ -90,11 +99,14 @@ public class GamePanel extends JPanel implements Runnable{
         aSetter.setMonster();
         aSetter.setInteractiveTile();
         eManager.setup();
+
         gameState = titleState;
+        currentArea = outside;
     }
     public void resetGame(boolean restart) {
         player.setDefaultPositions();
         player.restoreStatus();
+        player.resetCounter();
         aSetter.setMonster();
         aSetter.setNPC();
         if (restart) {
@@ -164,6 +176,7 @@ public class GamePanel extends JPanel implements Runnable{
         if(gameState == playState){
             // PLAYER
             player.update();
+
             //NPC
             for (int i = 0; i < npc[1].length; i++) {
                 if (npc[currentMap][i] != null){
@@ -313,6 +326,25 @@ public class GamePanel extends JPanel implements Runnable{
         }
 
         g2.dispose();
+    }
+    public void changeArea() {
+
+        if (nextArea != currentArea){
+            stopMusic();
+
+            if (nextArea == outside) {
+                playMusic(0);
+            }
+            if (nextArea == indoor) {
+                playMusic(20);
+            }
+            if (nextArea == dungeon) {
+                playMusic(21);
+            }
+        }
+
+        currentArea = nextArea;
+        aSetter.setMonster();
     }
     public void playMusic(int i) {
         music.setFile(i);

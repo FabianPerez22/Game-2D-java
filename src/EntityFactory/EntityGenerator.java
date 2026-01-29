@@ -3,37 +3,43 @@ package EntityFactory;
 import EntityFactory.Objects.*;
 import entity.Entity;
 import main.GamePanel;
+import object.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class EntityGenerator {
     private final Map<String, EntityFactory> factories = new HashMap<>();
-
-    public EntityGenerator() {
+    GamePanel gp;
+    public EntityGenerator(GamePanel gp) {
         initFactories();
+        this.gp = gp;
     }
 
     public void initFactories() {
-        factories.put("Woodcutter's Axe", new OBJ_AxeFactory());
-        factories.put("Boots", new OBJ_BootsFactory());
-        factories.put("Normal Sword", new OBJ_Sword_Normal_Factory());
-        factories.put("Red Potion", new OBJ_Potion_Red_Factory());
-        factories.put("Tent", new OBJ_TentFactory());
-        factories.put("Wood Shield", new OBJ_Shield_woodFactory());
-        factories.put("Blue Shield", new OBJ_Shield_Blue_Factory());
-        factories.put("Key", new OBJ_KeyFactory());
-        factories.put("Lantern", new OBJ_LanterFactory());
-        factories.put("Chest", new OBJ_ChestFactory());
+        factories.put(OBJ_Axe.objName, new OBJ_AxeFactory());
+        factories.put(OBJ_Boots.objName, new OBJ_BootsFactory());
+        factories.put(OBJ_Chest.objName, new OBJ_ChestFactory());
+        factories.put(OBJ_Coin_Bronze.objName, new OBJ_Coin_Bronze_Factory());
+        factories.put(OBJ_Door.objName, new OBJ_DoorFactory());
+        factories.put(OBJ_Fireball.objName, new OBJ_FireballFactory());
+        factories.put(OBJ_Heart.objName, new OBJ_HeartFactory());
+        factories.put(OBJ_Key.objName, new OBJ_KeyFactory());
+        factories.put(OBJ_Lanter.objName, new OBJ_LanterFactory());
+        factories.put(OBJ_Mana.objName, new OBJ_ManaFactory());
+        factories.put(OBJ_Potion_Red.objName, new OBJ_Potion_Red_Factory());
+        factories.put(OBJ_Rock.objName, new OBJ_RockFactory());
+        factories.put(OBJ_Shield_Blue.objName, new OBJ_Shield_Blue_Factory());
+        factories.put(OBJ_Shield_wood.objName, new OBJ_Shield_woodFactory());
+        factories.put(OBJ_Sword_Normal.objName, new OBJ_Sword_Normal_Factory());
+        factories.put(OBJ_Tent.objName, new OBJ_TentFactory());
     }
-    public Entity getObject(String itemName, GamePanel gp) {
+    public Entity getObject(String itemName) {
         EntityFactory factory = factories.get(itemName);
 
         if (factory == null) {
-            System.out.println("Unknown item: " + itemName);
-            return null;
+            System.out.println("Unknown item: " + itemName +" Factory's:" + factory);
         }
-
-        return factory.create(gp);
+        return factory != null ? factory.create(gp) : null;
     }
 }

@@ -5,11 +5,12 @@ import EntityFactory.EntityFactory;
 import main.GamePanel;
 
 public class OBJ_Axe extends Entity{
+    public static final String objName = "Woodcutter's Axe";
     public OBJ_Axe(GamePanel gp, int col, int row) {
         super(gp, col, row);
 
         type = type_axe;
-        name = "Woodcutter's Axe";
+        name = objName;
         description = "["+ name +"]\nA bit rusty but still can cut some \ntrees.";
         down1 = setup("objects/axe", gp.tileSize, gp.tileSize);
         attackValue = 2;
@@ -25,7 +26,7 @@ public class OBJ_Axe extends Entity{
 
         price = 5;
         type = type_axe;
-        name = "Woodcutter's Axe";
+        name = objName;
         description = "["+ name +"]\nA bit rusty but still can cut some \ntrees.";
         down1 = setup("objects/axe", gp.tileSize, gp.tileSize);
         attackValue = 2;
