@@ -66,11 +66,11 @@ public class EventHandler {
             else if(hit(1,51,45, "any")) teleport(0,53,15, gp.outside);
             else if(hit(1,51,42, "up")) speak(gp.npc[1][0]);
 
-            else if(hit(0,1,32, "any")) teleport(2,58,72, gp.dungeon); // first mine, go in
-            else if(hit(2,57,72, "any")) teleport(0,1,32, gp.outside); // go outside
+            else if(hit(0,1,32, "any")) teleport(2,40,77, gp.dungeon); // first mine, go in
+            else if(hit(2,39,77, "any")) teleport(0,1,32, gp.outside); // go outside
 
-            else if(hit(2,87,62, "any")) teleport(3,57,72,gp.dungeon); // second mine go in
-            else if(hit(3,57,72, "any")) teleport(2,87,62,gp.outside); // go outside
+            else if(hit(2,78,62, "any")) teleport(3,58,72,gp.dungeon); // second mine go in
+            else if(hit(3,57,72, "any")) teleport(2,78,62,gp.dungeon); // go outside the second mine
         }
     }
 

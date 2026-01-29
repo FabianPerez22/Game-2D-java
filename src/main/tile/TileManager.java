@@ -68,7 +68,8 @@ public class TileManager {
 
         loadMap("/res/maps/customMapV1.txt", 0);
         loadMap("/res/maps/merchantMap.txt", 1);
-        loadMap("/res/maps/secondMine.txt", 2);
+        loadMap("/res/maps/firstMine.txt", 2);
+        loadMap("/res/maps/secondMine.txt", 3);
 
     }
 

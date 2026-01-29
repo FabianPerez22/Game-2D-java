@@ -27,7 +27,7 @@ public class MOM_RedSlime extends Entity {
         maxLife = 8;
         life = maxLife;
         attack = 5;
-        defense = 2;
+        defense = 1;
         exp = 2;
         projectile = new OBJ_Rock(gp);
 
@@ -42,14 +42,14 @@ public class MOM_RedSlime extends Entity {
     }
 
     public void getImage() {
-        up1 = setup("monster/redlime_down_1", gp.tileSize, gp.tileSize);
-        up2 = setup("monster/redlime_down_2", gp.tileSize, gp.tileSize);
-        down1 = setup("monster/relime_down_1", gp.tileSize, gp.tileSize);
-        down2 = setup("monster/relime_down_2", gp.tileSize, gp.tileSize);
-        left1 = setup("monster/relime_down_1", gp.tileSize, gp.tileSize);
-        left2 = setup("monster/relime_down_2", gp.tileSize, gp.tileSize);
-        right1 = setup("monster/redlime_down_1", gp.tileSize, gp.tileSize);
-        right2 = setup("monster/redlime_down_2", gp.tileSize, gp.tileSize);
+        up1 = setup("monster/redslime_down_1", gp.tileSize, gp.tileSize);
+        up2 = setup("monster/redslime_down_2", gp.tileSize, gp.tileSize);
+        down1 = setup("monster/redslime_down_1", gp.tileSize, gp.tileSize);
+        down2 = setup("monster/redslime_down_2", gp.tileSize, gp.tileSize);
+        left1 = setup("monster/redslime_down_1", gp.tileSize, gp.tileSize);
+        left2 = setup("monster/redslime_down_2", gp.tileSize, gp.tileSize);
+        right1 = setup("monster/redslime_down_1", gp.tileSize, gp.tileSize);
+        right2 = setup("monster/redslime_down_2", gp.tileSize, gp.tileSize);
     }
 
     public void setAction() {
@@ -67,7 +67,7 @@ public class MOM_RedSlime extends Entity {
             checkStartChasingOrNot(gp.player, 10, 50);
 
             // Go a random direction
-            getRandomDirection();
+            getRandomDirection(120);
         }
     }
     public void damageReaction() {

@@ -91,7 +91,6 @@ public class GamePanel extends JPanel implements Runnable{
         this.addKeyListener(keyH);
         this.setFocusable(true);
     }
-
     public void setupGame() {
 
         aSetter.setObject();
@@ -104,6 +103,8 @@ public class GamePanel extends JPanel implements Runnable{
         currentArea = outside;
     }
     public void resetGame(boolean restart) {
+
+        currentArea = outside;
         player.setDefaultPositions();
         player.restoreStatus();
         player.resetCounter();
@@ -321,6 +322,7 @@ public class GamePanel extends JPanel implements Runnable{
             g2.drawString("WorldY " + player.worldY, x, y); y += lineHeight;
             g2.drawString("Col " + (player.worldX + player.solidArea.x)/tileSize, x, y); y += lineHeight;
             g2.drawString("Row " + (player.worldY + player.solidArea.y)/tileSize, x, y); y += lineHeight;
+            g2.drawString("God mode:" + keyH.godModeOn, x, y);
 
             g2.drawString("Draw Time: " + passed, x, y);
         }
@@ -341,6 +343,7 @@ public class GamePanel extends JPanel implements Runnable{
             if (nextArea == dungeon) {
                 playMusic(21);
             }
+            aSetter.setNPC();
         }
 
         currentArea = nextArea;

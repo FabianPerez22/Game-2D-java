@@ -10,6 +10,7 @@ public class KeyHandler implements KeyListener {
     public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, shotKeyPressed, spacePressed;
     //DEBUG
     boolean showDebugText = false;
+    public boolean godModeOn = false;
 
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
@@ -128,6 +129,15 @@ public class KeyHandler implements KeyListener {
             }
             else if (showDebugText) {
                 showDebugText = false;
+            }
+        }
+        // GOD MODE
+        if(code == KeyEvent.VK_G){
+            if(!godModeOn) {
+                godModeOn = true;
+            }
+            else if (godModeOn) {
+                godModeOn = false;
             }
         }
         if(code == KeyEvent.VK_R){

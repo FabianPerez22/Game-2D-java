@@ -79,6 +79,7 @@ public class Player extends Entity{
 
     }
     public void setDefaultPositions() {
+        gp.currentMap = 0;
         worldX = gp.tileSize *  88;
         worldY = gp.tileSize *  76;
         direction = "down";
@@ -99,6 +100,7 @@ public class Player extends Entity{
         inventory.clear();
         inventory.add(currentWeapon);
         inventory.add(currentShield);
+        inventory.add(new OBJ_Lanter(gp));
         inventory.add(new OBJ_Key(gp));
     }
     public int getAttack() {
@@ -161,6 +163,16 @@ public class Player extends Entity{
             attackLeft2 = setup("player/boy_axe_left_2", gp.tileSize*2, gp.tileSize);
             attackRight1 = setup("player/boy_axe_right_1", gp.tileSize*2, gp.tileSize);
             attackRight2 = setup("player/boy_axe_right_2", gp.tileSize*2, gp.tileSize);
+        }
+        if (currentWeapon.type == type_picaxe) {
+            attackUp1 = setup("player/boy_pick_up_1", gp.tileSize, gp.tileSize*2);
+            attackUp2 = setup("player/boy_pick_up_2", gp.tileSize, gp.tileSize*2);
+            attackDown1 = setup("player/boy_pick_down_1", gp.tileSize, gp.tileSize*2);
+            attackDown2 = setup("player/boy_pick_down_2", gp.tileSize, gp.tileSize*2);
+            attackLeft1 = setup("player/boy_pick_left_1", gp.tileSize*2, gp.tileSize);
+            attackLeft2 = setup("player/boy_pick_left_2", gp.tileSize*2, gp.tileSize);
+            attackRight1 = setup("player/boy_pick_right_1", gp.tileSize*2, gp.tileSize);
+            attackRight2 = setup("player/boy_pick_right_2", gp.tileSize*2, gp.tileSize);
         }
     }
     public void getGuardImage() {
@@ -369,11 +381,13 @@ public class Player extends Entity{
         if (mana > maxMana){
             mana = maxMana;
         }
-        if (life <= 0) {
-            gp.gameState = gp.gameOverState;
-            gp.ui.commandNum = -1;
-            gp.stopMusic();
-            gp.playSE(14);
+        if (!keyH.godModeOn) {
+            if (life <= 0) {
+                gp.gameState = gp.gameOverState;
+                gp.ui.commandNum = -1;
+                gp.stopMusic();
+                gp.playSE(14);
+            }
         }
     }
     public void damageProjectile(int i) {
@@ -413,11 +427,12 @@ public class Player extends Entity{
         }
     }
     public void interactNPC(int i) {
-        if (gp.keyH.enterPressed) {
-            if(i != 999){
+        if(i != 999){
+            if (gp.keyH.enterPressed) {
                 attackCanceled = true;
                 gp.npc[gp.currentMap][i].speak();
             }
+            gp.npc[gp.currentMap][i].move(direction);
         }
     }
     public void contactMonsteR(int i) {
@@ -481,6 +496,7 @@ public class Player extends Entity{
             generateParticle(gp.iTile[gp.currentMap][i], gp.iTile[gp.currentMap][i]);
 
             if (gp.iTile[gp.currentMap][i].life <= 0) {
+                gp.iTile[gp.currentMap][i].checkDrop();
                 gp.iTile[gp.currentMap][i] = gp.iTile[gp.currentMap][i].getDestroyedForm();
             }
         }
@@ -513,7 +529,7 @@ public class Player extends Entity{
 
             Entity selectedItem = inventory.get(itemIndex);
 
-            if (selectedItem.type == type_sword || selectedItem.type == type_axe) {
+            if (selectedItem.type == type_sword || selectedItem.type == type_axe || selectedItem.type == type_picaxe) {
                 currentWeapon = selectedItem;
                 attack = getAttack();
                 getAttackImage();
