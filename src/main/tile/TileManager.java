@@ -67,9 +67,8 @@ public class TileManager {
         }
 
         loadMap("/res/maps/customMapV1.txt", 0);
+        loadMap("/res/maps/merchantMap.txt", 1);
 
-        //loadMap("/res/maps/worldV3.txt", 0);
-        //loadMap("/res/maps/interior01.txt", 1);
     }
 
     public void getTileImage() {
@@ -132,6 +131,7 @@ public class TileManager {
             br.close();
 
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
     public void draw(Graphics2D g2) {

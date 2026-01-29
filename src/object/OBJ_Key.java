@@ -28,6 +28,7 @@ public class OBJ_Key  extends Entity{
         name = "Key";
         description = "[" + name +"]\n It open's a door";
         down1 = setup("objects/key", gp.tileSize, gp.tileSize);
+        setDialog();
     }
     public boolean use(Entity entity) {
 
@@ -36,14 +37,19 @@ public class OBJ_Key  extends Entity{
         int objIndex = getDetected(entity, gp.obj, "Door");
 
         if (objIndex != 999) {
-            gp.ui.currentDialogue = "You use the " + name + " and open the door";
+            startDialogue(this, 0);
             gp.playSE(3);
             gp.obj[gp.currentMap][objIndex] = null;
             return true;
 
         } else {
-            gp.ui.currentDialogue = "What are you doing?";
+            startDialogue(this, 1);
             return  false;
         }
+    }
+    public void setDialog() {
+        dialogues[0][0] = "You use the " + name + " and open the door";
+
+        dialogues[1][0] = "What are you doing?";
     }
 }

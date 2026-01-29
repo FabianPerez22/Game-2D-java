@@ -6,6 +6,7 @@ public class EventHandler {
 
     GamePanel gp;
     EventRect eventRect[][][];
+    Entity eventMaster;
 
     int previousEventX, previousEventY;
     boolean canTouchEvent = true;
@@ -13,6 +14,8 @@ public class EventHandler {
 
     public EventHandler(GamePanel gp) {
         this.gp = gp;
+
+        eventMaster = new Entity(gp);
 
         eventRect = new EventRect[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
 
@@ -40,6 +43,7 @@ public class EventHandler {
                 }
             }
         }
+        setDialogue();
     }
 
     public void checkEvent() {
@@ -58,9 +62,9 @@ public class EventHandler {
             if(hit(0,27, 16, "right")) damagePit(gp.dialogueState);
             else if(hit(0,88,74, "up")) healingPool(gp.dialogueState);
             else if(hit(0,23,16,"any")) wetGround();
-            else if(hit(0,10, 39, "any")) teleport(1,12,13);
-            else if(hit(1,12,13, "any")) teleport(0,10, 39);
-            else if(hit(1,12,9, "up")) speak(gp.npc[1][0]);
+            else if(hit(0,82,81, "any")) teleport(1,51,44);
+            else if(hit(1,51,45, "any")) teleport(0,82,81);
+            else if(hit(1,51,42, "up")) speak(gp.npc[1][0]);
         }
     }
 
@@ -87,7 +91,12 @@ public class EventHandler {
         }
         return hit;
     }
+    public void setDialogue() {
 
+        eventMaster.dialogues[0][0] = "You fall into a pit!";
+        eventMaster.dialogues[1][0] = "The game was save, all status has been recovered";
+        eventMaster.dialogues[1][1] = "Damn, this is good water";
+    }
     public void teleport(int map, int col, int row) {
 
         gp.gameState = gp.transitionState;
@@ -101,7 +110,7 @@ public class EventHandler {
     public void damagePit(int gameState) {
 
         gp.gameState = gameState;
-        gp.ui.currentDialogue = "You fall into a pit!";
+        eventMaster.startDialogue(eventMaster, 0);
         gp.playSE(6);
         gp.player.life -= 1;
         canTouchEvent = false;
@@ -110,7 +119,7 @@ public class EventHandler {
         if(gp.keyH.enterPressed) {
             gp.gameState = gameState;
             gp.player.attackCanceled = true;
-            gp.ui.currentDialogue = "The game was save, all status has been recovered";
+            eventMaster.startDialogue(eventMaster, 1);
             gp.playSE(2);
             gp.player.life = gp.player.maxLife;
             gp.player.mana = gp.player.maxMana;

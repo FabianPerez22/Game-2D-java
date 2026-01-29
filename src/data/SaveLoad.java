@@ -75,7 +75,7 @@ public class SaveLoad {
             // WRITE THE DATASORAGE OBJECT
             oos.writeObject(ds);
         } catch (Exception e) {
-            System.out.println("Save Exception!");
+            System.out.println("Save Exception! " + e);
         }
     }
     public void load() {
@@ -135,7 +135,7 @@ public class SaveLoad {
 
 
         } catch (Exception e) {
-            System.out.println("Load Exception!");
+            System.out.println("Load Exception! " + e);
         }
     }
 }

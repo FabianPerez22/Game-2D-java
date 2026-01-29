@@ -25,15 +25,14 @@ public class EntityGenerator {
         factories.put("Key", new OBJ_KeyFactory());
         factories.put("Lantern", new OBJ_LanterFactory());
         factories.put("Chest", new OBJ_ChestFactory());
+        factories.put("Door", new OBJ_DoorFactory());
     }
     public Entity getObject(String itemName, GamePanel gp) {
         EntityFactory factory = factories.get(itemName);
 
         if (factory == null) {
-            System.out.println("Unknown item: " + itemName);
-            return null;
+            System.out.println("Unknown item: " + itemName +" Factory's:" + factory);
         }
-
-        return factory.create(gp);
+        return factory != null ? factory.create(gp) : null;
     }
 }

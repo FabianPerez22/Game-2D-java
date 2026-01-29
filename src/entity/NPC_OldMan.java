@@ -17,8 +17,7 @@ public class NPC_OldMan extends Entity{
 
         direction = "down";
         speed = 1;
-        getImage();
-        setDialogue();
+
 
         solidArea.x = 8;
         solidArea.y = 16;
@@ -26,6 +25,10 @@ public class NPC_OldMan extends Entity{
         solidArea.height = 32;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
+        dialogueSet = -1;
+
+        getImage();
+        setDialogue();
 
     }
 
@@ -41,10 +44,18 @@ public class NPC_OldMan extends Entity{
     }
 
     public void setDialogue() {
-        dialogues[0] = "Hello, Lad.";
-        dialogues[1] = "So, you've come to this island to find the \ntreasure?";
-        dialogues[2] = "I used to be a great wizard but now... I'm a \nbit too old for that adventure.";
-        dialogues[3] = "Well, good luck on you.";
+        dialogues[0][0] = "Hello, Lad.";
+        dialogues[0][1] = "So, you've come to this island to find the \ntreasure?";
+        dialogues[0][2] = "I used to be a great wizard but now... I'm a bit too \nold for that adventure.";
+        dialogues[0][3] = "Well, good luck on you.";
+
+        dialogues[1][0] = "If you become tired, rest at the water.";
+        dialogues[1][1] = "There's so many treasure and monster, be carefull";
+        dialogues[1][2] = "I need some rest after init my adventure";
+
+
+        dialogues[2][0] = "Good lucky.";
+
 
     }
     public void setAction(){
@@ -84,8 +95,17 @@ public class NPC_OldMan extends Entity{
     public void speak() {
         // Do this character specific stuff
 
-        super.speak();
+        facePlayer();
+        startDialogue(this, dialogueSet);
 
-        onPath = true;
+        dialogueSet++;
+        if (dialogues[dialogueSet][0] == null) {
+            dialogueSet = 0;
+        }
+       // if (gp.player.life < gp.player.maxLife/3) {
+       //     dialogueSet = 1;
+       // }
+
+        //onPath = true;
     }
 }

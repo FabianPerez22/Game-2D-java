@@ -21,9 +21,28 @@ public class OBJ_Door extends Entity {
         solidArea.height = 32;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
+        setDialog();
+    }
+    public OBJ_Door(GamePanel gp) {
+        super(gp);
+        this.gp = gp;
+
+        type = type_obstacle;
+        name = "Door";
+        down1 = setup("objects/door", gp.tileSize, gp.tileSize);
+        collision = true;
+
+        solidArea.x = 0;
+        solidArea.y = 16;
+        solidArea.width = 48;
+        solidArea.height = 32;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
     }
     public void interact() {
-        gp.gameState = gp.dialogueState;
-        gp.ui.currentDialogue = "You need a key to open this";
+        startDialogue(this, 0);
+    }
+    public void setDialog() {
+        dialogues[0][0] = "You need a key to open this";
     }
 }

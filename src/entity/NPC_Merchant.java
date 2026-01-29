@@ -6,8 +6,6 @@ import object.OBJ_Key;
 import object.OBJ_Potion_Red;
 import object.OBJ_Shield_Blue;
 
-import java.util.Random;
-
 public class NPC_Merchant extends Entity{
 
     GamePanel gp;
@@ -28,7 +26,6 @@ public class NPC_Merchant extends Entity{
         setDialogue();
         setItems();
     }
-
     public void getImage() {
         up1 = setup("npc/merchant_down_1", gp.tileSize, gp.tileSize);
         up2 = setup("npc/merchant_down_2", gp.tileSize, gp.tileSize);
@@ -41,7 +38,11 @@ public class NPC_Merchant extends Entity{
     }
 
     public void setDialogue() {
-        dialogues[0] = "He he, so you found me.\nI have some good stuff.\nDo you want to trade?";
+        dialogues[0][0] = "He he, so you found me. I have some good stuff.\nDo you want to trade?";
+        dialogues[1][0] = "Come again, hehe!";
+        dialogues[2][0] = "You need more coin to buy that!";
+        dialogues[3][0] = "You cannot carry any more!";
+        dialogues[4][0] = "You cannot sell an equipped item!";
     }
 
     public void setItems() {
@@ -54,7 +55,6 @@ public class NPC_Merchant extends Entity{
 
     public void speak() {
 
-        super.speak();
         gp.gameState = gp.tradeState;
         gp.ui.npc = this;
     }
