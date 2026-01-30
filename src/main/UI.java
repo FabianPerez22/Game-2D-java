@@ -183,6 +183,17 @@ public class UI {
             }
         }
 
+        // DRAW MAX STAMINA
+        x = (gp.tileSize/2);
+        y = (int)(gp.tileSize*0.3);
+        i = 0;
+
+        g2.setColor(Color.black);
+        g2.fillRect(x-1, y-1, gp.player.maxStamina+2, 8);
+
+        g2.setColor(Color.yellow);
+        g2.fillRect(x, y, gp.player.stamina, 6);
+
     }
     public void drawMonsterLife() {
 

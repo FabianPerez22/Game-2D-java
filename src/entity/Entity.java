@@ -58,9 +58,12 @@ public class Entity {
     int        dyingCounter = 0;
     public int hpBarCounter = 0;
     public int knockBackCounter = 0;
-    public int lightCounter = 0;
     public int guardCounter = 0;
     int        offBalanceCounter = 0;
+    public int staminaCounter = 0;
+    public int runCounter = 0;
+    public int lightCounter = 0;
+    public int lightConsumed = 2;
 
     // CHARACTER ATRIBUTES
     public String name;
@@ -68,6 +71,8 @@ public class Entity {
     public int life;
     public int maxMana;
     public int mana;
+    public int maxStamina;
+    public int stamina;
     public int ammo;
     public int defaultSpeed;
     public int speed;
@@ -88,7 +93,7 @@ public class Entity {
     public boolean boss;
 
     // PLAYER DEBUFS
-    public int wetDebuf = 1;
+    public int wetDebuf = 2;
 
     // ITEM ATTRIBUTES
     public ArrayList<Entity> inventory = new ArrayList<>();
@@ -103,7 +108,6 @@ public class Entity {
     public boolean stackable = false;
     public int amount = 1;
     public int lightRadius;
-    public int lightDuration;
     public double durabilidy = 100;
 
     // TYPE
@@ -212,9 +216,10 @@ public class Entity {
         dyingCounter = 0;
         hpBarCounter = 0;
         knockBackCounter = 0;
-        lightCounter = 0;
         guardCounter = 0;
         offBalanceCounter = 0;
+        staminaCounter = 0;
+        runCounter = 0;
     }
     public void getDialogue(){}
     public void checkDrop () {}

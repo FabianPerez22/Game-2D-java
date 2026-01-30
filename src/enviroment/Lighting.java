@@ -68,7 +68,7 @@ public class Lighting {
             fraction[11] = 1f;
 
             // create a gradation paint settings for the light circle
-            RadialGradientPaint gPaint = new RadialGradientPaint(centerX,centerY,gp.player.currentLight.lightRadius,fraction,color);
+            RadialGradientPaint gPaint = new RadialGradientPaint(centerX,centerY, gp.player.currentLight.lightRadius,fraction,color);
 
             // set gradient data on g2
             g2.setPaint(gPaint);

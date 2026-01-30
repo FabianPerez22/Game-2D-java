@@ -13,7 +13,7 @@ public class OBJ_Axe extends Entity{
         name = objName;
         description = "["+ name +"]\nA bit rusty but still can cut some \ntrees.";
         down1 = setup("objects/axe", gp.tileSize, gp.tileSize);
-        attackValue = 2;
+        attackValue = 1;
         attackArea.width = 30;
         attackArea.height = 30;
         price = 5;
