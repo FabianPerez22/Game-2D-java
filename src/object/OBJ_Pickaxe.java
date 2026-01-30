@@ -12,7 +12,6 @@ public class OBJ_Pickaxe extends Entity {
         name = objName;
         description = "["+ name +"]\nYou will dig it!";
         down1 = setup("objects/pickaxe", gp.tileSize, gp.tileSize);
-        attackValue = 1;
         attackArea.width = 30;
         attackArea.height = 30;
         price = 5;

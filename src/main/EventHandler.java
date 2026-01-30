@@ -67,6 +67,8 @@ public class EventHandler {
             else if(hit(1,51,42, "up")) speak(gp.npc[1][1]);
             else if(hit(1,53, 44,"any")) messageConvenient(gp.dialogueState);
 
+            //test
+            else if(hit(0,87,78,"any")) wetGround();
 
             else if(hit(0,1,32, "any")) teleport(2,40,77, gp.dungeon); // first mine, go in
             else if(hit(2,39,77, "any")) teleport(0,1,32, gp.outside); // go outside
