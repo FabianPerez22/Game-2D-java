@@ -4,6 +4,7 @@ Features i've made by me way:
 ---
 * Debufs:
     - Wet: -2 speed after step on wet floor.
+    - Burned: -1 life, if life is 1, none damage but apply his status.
 ####
 * Stamina and Run:
     - The player can run, regen stamina and can't do any action like attack or run without stamina.
