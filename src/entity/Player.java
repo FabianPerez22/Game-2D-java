@@ -16,7 +16,6 @@ public class Player extends Entity{
     public boolean attackCanceled = false;
     public boolean lightUpdated = false;
 
-
     public Player(GamePanel gp, KeyHandler keyH){
         super(gp);
         this.keyH = keyH;
@@ -45,10 +44,13 @@ public class Player extends Entity{
         //worldX = gp.tileSize * 54;
         //worldY = gp.tileSize * 15;
 
-       // worldX = gp.tileSize * 10;
-       // worldY = gp.tileSize * 36;
+        // Far from the cave
+        //worldX = gp.tileSize * 10;
+        //worldY = gp.tileSize * 36;
 
         // merchant map
+
+
         //worldX = gp.tileSize * 10;
         //worldY = gp.tileSize * 40;
 
@@ -60,7 +62,7 @@ public class Player extends Entity{
         level = 1;
         maxLife = 6;
         life = maxLife;
-        maxMana = 3;
+        maxMana = 6;
         mana = maxMana;
         maxStamina = 100;
         stamina = maxStamina;
@@ -69,20 +71,22 @@ public class Player extends Entity{
         dexterity = 1; // The more dexterity he has, the less damage he receives.
         exp = 0;
         nextLevelExp = 5;
-        coin = 10000;
+        coin = 0;
         currentWeapon = new OBJ_Sword_Normal(gp);
         currentShield = new OBJ_Shield_wood(gp);
         currentLight = null;
         projectile = new OBJ_Fireball(gp);
         attack = getAttack(); // the total attack value is decided by strength and weapon.
         defense = getDefense(); // the total defense value is decided by dexterity and shield.
+        price_OBJ = 0;
+        ironOre = 0;
+        coal = 0;
 
         getImage();
         getAttackImage();
         getGuardImage();
         setItems();
         setDialogue();
-
     }
     public void setDefaultPositions() {
         gp.currentMap = 0;
@@ -106,8 +110,7 @@ public class Player extends Entity{
         inventory.clear();
         inventory.add(currentWeapon);
         inventory.add(currentShield);
-        inventory.add(new OBJ_Pickaxe(gp));
-        inventory.add(new OBJ_Axe(gp));
+        inventory.add(new OBJ_Lantern(gp));
     }
     public int getAttack() {
         attackArea = currentWeapon.attackArea;
@@ -145,8 +148,8 @@ public class Player extends Entity{
     public int getSpeed() {
         return speed = defaultSpeed;
     }
-    public int getStamina() {
-        return stamina = maxStamina;
+    public void getStamina() {
+        stamina = maxStamina;
     }
     public void getImage() {
         up1 = setup("player/boy_up_1", gp.tileSize, gp.tileSize);
@@ -208,6 +211,20 @@ public class Player extends Entity{
         right2 =image;
     }
     public void update() {
+
+        if (currentLight != null && !lightUpdated) {
+            lightCounter++;
+            System.out.println("Ligh counter " + lightCounter);
+            if (lightCounter > 180 ) {
+                lightUpdated = true;
+                currentLight.lightRadius =
+                        Math.max(5, currentLight.lightRadius - lightConsumed);
+                lightCounter = 0;
+                if (currentLight.lightRadius <= 50) {
+                    currentLight = null;
+                }
+            }
+        }
 
         if (knockBack) {
             collisionOn = false;
@@ -368,37 +385,7 @@ public class Player extends Entity{
                 invincibleCounter = 0;
             }
         }
-        int iw = 20;
-        if(wet) {
-            wetCounter++;
-            if (wetCounter == iw) {
-                generateParticle(this,this);
-                speed -= wetDebuf;
-            }
-            if (wetCounter == iw*2) {
-                generateParticle(this,this);
-            }
-            if (wetCounter == iw*4) {
-                generateParticle(this,this);
-            }
-            if (wetCounter == iw*6) {
-                generateParticle(this,this);
-            }
-            if (wetCounter == iw*18) {
-                generateParticle(this,this);
-            }if (wetCounter == iw*10) {
-                generateParticle(this,this);
-            }if (wetCounter == iw*12) {
-                generateParticle(this,this);
-            }
-
-            if (wetCounter > 240) {
-                wet = false;
-                speed = getSpeed();
-                wetCounter = 0;
-            }
-        }
-        //LightDurations(currentLight);
+        getDebuff();
 
         if (shotAvailableCounter < 30) {
             shotAvailableCounter++;
@@ -417,7 +404,6 @@ public class Player extends Entity{
                 gp.playSE(14);
             }
         }
-
         if (stamina > 0 & !wet) {
             if (keyH.shiftPressed && stamina >= 15) {
                 runCounter++;
@@ -439,7 +425,6 @@ public class Player extends Entity{
                 staminaCounter = 80;
             }
         }
-
     }
     public void damageProjectile(int i) {
         if (i != 999) {
@@ -495,6 +480,9 @@ public class Player extends Entity{
                 if (damage < 1) {
                     damage = 1;
                 }
+                this.wet = gp.monster[gp.currentMap][i].applyWet;
+                this.burned = gp.monster[gp.currentMap][i].applyBurned;
+
                 life -= damage;
                 transparent = true;
                 invincible = true;
@@ -518,9 +506,11 @@ public class Player extends Entity{
                 if (damage < 0) {
                     damage = 0;
                 }
+                // APPLY DEBUFF FROM THE CURRENT WEAPON
+                gp.monster[gp.currentMap][i].wet = gp.player.currentWeapon.wet;
+                gp.monster[gp.currentMap][i].burned = gp.player.currentWeapon.burned;
 
                 gp.monster[gp.currentMap][i].life -= damage;
-                //gp.ui.addMessage(damage+ " damage!");
 
                 gp.monster[gp.currentMap][i].invincible = true;
                 gp.monster[gp.currentMap][i].damageReaction();
@@ -554,6 +544,11 @@ public class Player extends Entity{
     }
     public void setDialogue() {
         dialogues[0][0] = "You are level " + level + " now! You feel more stronger";
+        if (level == 10) {
+            dialogues[0][1] = "And you feel your fire ball can apply burned.";
+        } else {
+            dialogues[0][1] = null;
+        }
     }
     public void checkLevelUp() {
         while (exp >= nextLevelExp) {
@@ -572,6 +567,45 @@ public class Player extends Entity{
 
 
             startDialogue(this,0);
+        }
+    }
+    public void getCurrency() {
+        int i = searchItemInInventory("Iron ingot");
+        if (i != 999) {
+            price_OBJ =  inventory.get(i).amount;
+        } else {
+            price_OBJ = 0;
+        }
+        i = searchItemInInventory("Coal");
+        if (i != 999) {
+            coal =  inventory.get(i).amount;
+        }else {
+            coal = 0;
+        }
+        i = searchItemInInventory("Iron ore");
+        if (i != 999) {
+            ironOre =  inventory.get(i).amount;
+        }else {
+            ironOre = 0;
+        }
+    }
+    public void consumeOBJ(int quantity, String object) {
+        int i = searchItemInInventory(object);
+        if (i != 999) {
+            inventory.get(i).amount -= quantity;
+            if (inventory.get(i).amount <= 0) {
+                inventory.remove(i);
+            }
+        }
+    }
+    public void getDismantleItems(int quantity) {
+        int index = searchItemInInventory("Iron ingot");
+        for (int i = 0; i < quantity; i++) {
+            if ( index == 999) {
+                inventory.add(new OBJ_IronIngot(gp));
+            } else {
+                inventory.get(index).amount++;
+            }
         }
     }
     public void selectItem() {
@@ -601,7 +635,7 @@ public class Player extends Entity{
                 }
                 lightUpdated = true;
             }
-            if (selectedItem.type == type_consumable) {
+            if (selectedItem.type == type_consumable || selectedItem.type == type_light) {
                 if(selectedItem.use(this)) {
                     if (selectedItem.amount > 1) {
                         selectedItem.amount--;
@@ -609,24 +643,6 @@ public class Player extends Entity{
                     else {
                         inventory.remove(itemIndex);
                     }
-                }
-            }
-        }
-    }
-    public void LightDurations(Entity object) {
-
-        // not complete
-        if (object != null) {
-            while (currentLight == object) {
-
-                lightCounter++;
-                System.out.println("Counter " + lightCounter);
-                System.out.println("object duration " + object.lightDuration);
-                if (lightCounter > object.lightDuration) {
-                    currentLight = null;
-                    object.use(this);
-                    lightCounter = 0;
-                    break;
                 }
             }
         }
@@ -671,22 +687,6 @@ public class Player extends Entity{
             }
         }
         return canObtain;
-    }
-    public Color getParticleColor() {
-        Color color = new Color(0, 255, 255);
-        return color;
-    }
-    public int getParticleSize() {
-        int size = 6;
-        return size; // 6 pixels
-    }
-    public int getParticleSpeed() {
-        int speed = 1;
-        return speed;
-    }
-    public int getParticleMaxLife() {
-        int maxLife = 20;
-        return maxLife;
     }
     public void draw(Graphics2D g2) {
 

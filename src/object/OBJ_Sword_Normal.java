@@ -14,6 +14,8 @@ public class OBJ_Sword_Normal extends Entity{
         name = objName;
         description = "[" + name +"]\n An old Sword";
         down1 = setup("objects/sword_normal", gp.tileSize, gp.tileSize);
+        price_OBJ = 2;
+        price = 2;
         attackValue = 1;
         attackArea.width = 36;
         attackArea.height = 36;
@@ -24,9 +26,9 @@ public class OBJ_Sword_Normal extends Entity{
     public OBJ_Sword_Normal(GamePanel gp) {
         super(gp);
 
+        price_OBJ = 2;
         price = 2;
         knockBackPower = 2;
-
         type = type_sword;
         name = objName;
         description = "[" + name +"]\n An old Sword";

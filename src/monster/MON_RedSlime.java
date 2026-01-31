@@ -3,17 +3,15 @@ package monster;
 import entity.Entity;
 import main.GamePanel;
 import object.OBJ_Coin_Bronze;
-import object.OBJ_Heart;
-import object.OBJ_Mana;
 import object.OBJ_Rock;
 
 import java.util.Random;
 
-public class MOM_RedSlime extends Entity {
+public class MON_RedSlime extends Entity {
 
     GamePanel gp;
 
-    public MOM_RedSlime(GamePanel gp, int col, int row) {
+    public MON_RedSlime(GamePanel gp, int col, int row) {
 
         super(gp);
         this.gp = gp;
@@ -22,7 +20,7 @@ public class MOM_RedSlime extends Entity {
 
         type = type_monster;
         name = "Red Slime";
-        defaultSpeed = 1;
+        defaultSpeed = 2;
         speed = defaultSpeed;
         maxLife = 5;
         life = maxLife;
@@ -37,7 +35,6 @@ public class MOM_RedSlime extends Entity {
         solidArea.height = 30;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
-
         getImage();
     }
 
@@ -51,7 +48,6 @@ public class MOM_RedSlime extends Entity {
         right1 = setup("monster/redslime_down_1", gp.tileSize, gp.tileSize);
         right2 = setup("monster/redslime_down_2", gp.tileSize, gp.tileSize);
     }
-
     public void setAction() {
         if (onPath) {
             // Check if it stops chasing

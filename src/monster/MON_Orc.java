@@ -3,14 +3,13 @@ package monster;
 import entity.Entity;
 import main.GamePanel;
 import object.OBJ_Coin_Bronze;
-import object.OBJ_Rock;
 
 import java.util.Random;
 
-public class MOM_Orc extends Entity {
+public class MON_Orc extends Entity {
     GamePanel gp;
 
-    public MOM_Orc(GamePanel gp, int col, int row) {
+    public MON_Orc(GamePanel gp, int col, int row) {
         super(gp);
         this.gp = gp;
         this.worldX = gp.tileSize * col;

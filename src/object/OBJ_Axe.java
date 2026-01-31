@@ -13,6 +13,7 @@ public class OBJ_Axe extends Entity{
         name = objName;
         description = "["+ name +"]\nA bit rusty but still can cut some \ntrees.";
         down1 = setup("objects/axe", gp.tileSize, gp.tileSize);
+        price_OBJ = 2;
         attackValue = 1;
         attackArea.width = 30;
         attackArea.height = 30;
@@ -26,6 +27,7 @@ public class OBJ_Axe extends Entity{
 
         price = 5;
         type = type_axe;
+        price_OBJ = 2;
         name = objName;
         description = "["+ name +"]\nA bit rusty but still can cut some \ntrees.";
         down1 = setup("objects/axe", gp.tileSize, gp.tileSize);

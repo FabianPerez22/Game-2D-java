@@ -15,6 +15,8 @@ public class OBJ_Pickaxe extends Entity {
         attackArea.width = 30;
         attackArea.height = 30;
         price = 5;
+        price_OBJ = 2;
+        dismantle_value = 2;
         knockBackPower = 10;
         motion1_duration = 20;
         motion2_duration = 30;
@@ -22,6 +24,7 @@ public class OBJ_Pickaxe extends Entity {
     public OBJ_Pickaxe(GamePanel gp) {
         super(gp);
 
+        price_OBJ = 2;
         price = 5;
         type = type_picaxe;
         name = objName;

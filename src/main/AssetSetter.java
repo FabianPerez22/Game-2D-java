@@ -1,11 +1,7 @@
 package main;
 
-import entity.NPC_BigRock;
-import entity.NPC_Merchant;
-import entity.NPC_OldMan;
-import main.tile_interactive.IT_DestructibleWall;
-import main.tile_interactive.IT_DryTree;
-import main.tile_interactive.IT_MetalPlate;
+import entity.*;
+import main.tile_interactive.*;
 import monster.*;
 import object.*;
 
@@ -38,6 +34,33 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldY = gp.tileSize*58;
         i++;
 
+        mapNum = 1;
+
+
+
+        gp.obj[mapNum][i] = new OBJ_IronOre(gp, 53,51); i++;
+        gp.obj[mapNum][i] = new OBJ_IronOre(gp, 52,51); i++;
+        gp.obj[mapNum][i] = new OBJ_IronOre(gp, 54,51); i++;
+
+        gp.obj[mapNum][i] = new OBJ_IronOre(gp, 53,52); i++;
+        gp.obj[mapNum][i] = new OBJ_IronOre(gp, 52,52); i++;
+        gp.obj[mapNum][i] = new OBJ_IronOre(gp, 54,52); i++;
+
+        gp.obj[mapNum][i] = new OBJ_Coal(gp, 53,50); i++;
+        gp.obj[mapNum][i] = new OBJ_Coal(gp, 52,50); i++;
+        gp.obj[mapNum][i] = new OBJ_Coal(gp, 54,50); i++;
+
+        gp.obj[mapNum][i] = new OBJ_Coal(gp, 53,49); i++;
+        gp.obj[mapNum][i] = new OBJ_Coal(gp, 52,49); i++;
+        gp.obj[mapNum][i] = new OBJ_Coal(gp, 54,49); i++;
+
+        gp.obj[mapNum][i] = new OBJ_IronIngot(gp, 53,48); i++;
+        gp.obj[mapNum][i] = new OBJ_IronIngot(gp, 52,48); i++;
+        gp.obj[mapNum][i] = new OBJ_IronIngot(gp, 54,48); i++;
+
+        gp.obj[mapNum][i] = new OBJ_IronIngot(gp, 53,47); i++;
+        gp.obj[mapNum][i] = new OBJ_IronIngot(gp, 52,47); i++;
+        gp.obj[mapNum][i] = new OBJ_IronIngot(gp, 54,47); i++;
 
 
 
@@ -69,7 +92,6 @@ public class AssetSetter {
 
         gp.obj[mapNum][i] = new OBJ_Key(gp, 38,69); i++;
 
-
     }
     public void setNPC() {
         int i = 0;
@@ -78,7 +100,12 @@ public class AssetSetter {
         gp.npc[mapNum][i] = new NPC_OldMan(gp, 70,88); i++;
 
         mapNum = 1;
-        gp.npc[mapNum][i] = new NPC_Merchant(gp, 51,40); i++;
+        gp.npc[mapNum][i] = new NPC_Merchant(gp, 49,46); i++;
+
+        gp.npc[mapNum][i] = new NPC_Crafting(gp, 46,46); i++;
+
+        gp.npc[mapNum][i] = new NPC_Oven(gp, 45,46); i++;
+
 
         mapNum = 2;
         i = 0;
@@ -110,27 +137,27 @@ public class AssetSetter {
         gp.monster[mapNum][i] = new MON_GreenSlime(gp,44, 34); i++;
         gp.monster[mapNum][i] = new MON_GreenSlime(gp,45, 34); i++;
 
-        gp.monster[mapNum][i] = new MOM_RedSlime(gp,3,32); i++;
+        gp.monster[mapNum][i] = new MON_RedSlime(gp,3,32); i++;
 
         i = 0;
         mapNum = 2;
-        gp.monster[mapNum][i] = new MOM_Bat(gp,64,77); i++;
-        gp.monster[mapNum][i] = new MOM_Bat(gp,64,75); i++;
-        gp.monster[mapNum][i] = new MOM_Bat(gp,59,75); i++;
-        gp.monster[mapNum][i] = new MOM_Bat(gp,42,62); i++;
+        gp.monster[mapNum][i] = new MON_Bat(gp,64,77); i++;
+        gp.monster[mapNum][i] = new MON_Bat(gp,64,75); i++;
+        gp.monster[mapNum][i] = new MON_Bat(gp,59,75); i++;
+        gp.monster[mapNum][i] = new MON_Bat(gp,42,62); i++;
 
-        gp.monster[mapNum][i] = new MOM_Bat(gp,41,62); i++;
+        gp.monster[mapNum][i] = new MON_Bat(gp,41,62); i++;
 
-        gp.monster[mapNum][i] = new MOM_RedSlime(gp,69,66); i++;
+        gp.monster[mapNum][i] = new MON_RedSlime(gp,69,66); i++;
 
         i = 0;
         mapNum = 3;
-        gp.monster[mapNum][i] = new MOM_RedSlime(gp,73,71); i++;
-        gp.monster[mapNum][i] = new MOM_RedSlime(gp,73,72); i++;
+        gp.monster[mapNum][i] = new MON_RedSlime(gp,73,71); i++;
+        gp.monster[mapNum][i] = new MON_RedSlime(gp,73,72); i++;
 
-        gp.monster[mapNum][i] = new MOM_SkeletonLord(gp,71,46); i++;
+        gp.monster[mapNum][i] = new MON_SkeletonLord(gp,71,46); i++;
 
-        gp.monster[mapNum][i] = new MOM_SkeletonLord(gp,60,56); i++;
+        gp.monster[mapNum][i] = new MON_SkeletonLord(gp,60,56); i++;
 
     }
     public void setInteractiveTile() {
@@ -198,6 +225,34 @@ public class AssetSetter {
 
         mapNum = 3;
         i = 0;
+        gp.iTile[mapNum][i] = new IT_IronOreWall(gp, 53,76); i++;
+        gp.iTile[mapNum][i] = new IT_IronOreWall(gp, 53,77); i++;
+
+        gp.iTile[mapNum][i] = new IT_coalWall(gp, 61,66); i++;
+        gp.iTile[mapNum][i] = new IT_coalWall(gp, 61,67); i++;
+        gp.iTile[mapNum][i] = new IT_coalWall(gp, 61,68); i++;
+        gp.iTile[mapNum][i] = new IT_coalWall(gp, 61,69); i++;
+        gp.iTile[mapNum][i] = new IT_coalWall(gp, 62,69); i++;
+        gp.iTile[mapNum][i] = new IT_coalWall(gp, 61,70); i++;
+
+        gp.iTile[mapNum][i] = new IT_coalWall(gp, 60,66); i++;
+        gp.iTile[mapNum][i] = new IT_coalWall(gp, 60,67); i++;
+        gp.iTile[mapNum][i] = new IT_coalWall(gp, 60,68); i++;
+        gp.iTile[mapNum][i] = new IT_coalWall(gp, 60,69); i++;
+        gp.iTile[mapNum][i] = new IT_coalWall(gp, 60,70); i++;
+
+        gp.iTile[mapNum][i] = new IT_IronOreWall(gp, 73,65); i++;
+        gp.iTile[mapNum][i] = new IT_IronOreWall(gp, 72,65); i++;
+        gp.iTile[mapNum][i] = new IT_IronOreWall(gp, 72,66); i++;
+        gp.iTile[mapNum][i] = new IT_IronOreWall(gp, 71,67); i++;
+        gp.iTile[mapNum][i] = new IT_IronOreWall(gp, 72,67); i++;
+        gp.iTile[mapNum][i] = new IT_IronOreWall(gp, 73,67); i++;
+        gp.iTile[mapNum][i] = new IT_IronOreWall(gp, 74,67); i++;
+
+
+
+
+
 
     }
 
