@@ -59,10 +59,10 @@ public class Player extends Entity{
         direction = "down";
 
         // PLAYER STATUS
-        level = 1;
+        level = 9;
         maxLife = 6;
         life = maxLife;
-        maxMana = 3;
+        maxMana = 10;
         mana = maxMana;
         maxStamina = 100;
         stamina = maxStamina;
@@ -385,36 +385,7 @@ public class Player extends Entity{
                 invincibleCounter = 0;
             }
         }
-        int iw = 20;
-        if(wet) {
-            wetCounter++;
-            if (wetCounter == iw) {
-                generateParticle(this,this);
-                speed -= wetDebuf;
-            }
-            if (wetCounter == iw*2) {
-                generateParticle(this,this);
-            }
-            if (wetCounter == iw*4) {
-                generateParticle(this,this);
-            }
-            if (wetCounter == iw*6) {
-                generateParticle(this,this);
-            }
-            if (wetCounter == iw*18) {
-                generateParticle(this,this);
-            }if (wetCounter == iw*10) {
-                generateParticle(this,this);
-            }if (wetCounter == iw*12) {
-                generateParticle(this,this);
-            }
-
-            if (wetCounter > 240) {
-                wet = false;
-                speed = getSpeed();
-                wetCounter = 0;
-            }
-        }
+        getDebuff();
 
         if (shotAvailableCounter < 30) {
             shotAvailableCounter++;
@@ -454,14 +425,6 @@ public class Player extends Entity{
                 staminaCounter = 80;
             }
         }
-
-    }
-    public void removeLight(){
-
-        int index = searchItemInInventory("Lantern");
-
-
-
 
     }
     public void damageProjectile(int i) {
@@ -518,6 +481,9 @@ public class Player extends Entity{
                 if (damage < 1) {
                     damage = 1;
                 }
+                this.wet = gp.monster[gp.currentMap][i].applyWet;
+                this.burned = gp.monster[gp.currentMap][i].applyBurned;
+
                 life -= damage;
                 transparent = true;
                 invincible = true;
@@ -541,9 +507,11 @@ public class Player extends Entity{
                 if (damage < 0) {
                     damage = 0;
                 }
+                // APPLY DEBUFF FROM THE CURRENT WEAPON
+                gp.monster[gp.currentMap][i].wet = gp.player.currentWeapon.wet;
+                gp.monster[gp.currentMap][i].burned = gp.player.currentWeapon.burned;
 
                 gp.monster[gp.currentMap][i].life -= damage;
-                //gp.ui.addMessage(damage+ " damage!");
 
                 gp.monster[gp.currentMap][i].invincible = true;
                 gp.monster[gp.currentMap][i].damageReaction();
@@ -577,6 +545,11 @@ public class Player extends Entity{
     }
     public void setDialogue() {
         dialogues[0][0] = "You are level " + level + " now! You feel more stronger";
+        if (level == 10) {
+            dialogues[0][1] = "And you feel your fire ball can apply burned.";
+        } else {
+            dialogues[0][1] = null;
+        }
     }
     public void checkLevelUp() {
         while (exp >= nextLevelExp) {
@@ -676,22 +649,6 @@ public class Player extends Entity{
             }
         }
         return canObtain;
-    }
-    public Color getParticleColor() {
-        Color color = new Color(0, 255, 255);
-        return color;
-    }
-    public int getParticleSize() {
-        int size = 6;
-        return size; // 6 pixels
-    }
-    public int getParticleSpeed() {
-        int speed = 1;
-        return speed;
-    }
-    public int getParticleMaxLife() {
-        int maxLife = 20;
-        return maxLife;
     }
     public void draw(Graphics2D g2) {
 

@@ -22,6 +22,7 @@ public class OBJ_Fireball extends Projectile {
         useCost = 1;
         alive = false;
         getImage();
+        burned = false;
     }
     public void getImage() {
         up1 = setup("projectile/fireball_up_1", gp.tileSize, gp.tileSize);
@@ -33,7 +34,15 @@ public class OBJ_Fireball extends Projectile {
         right1 = setup("projectile/fireball_right_1", gp.tileSize, gp.tileSize);
         right2 = setup("projectile/fireball_right_2", gp.tileSize, gp.tileSize);
     }
-
+    public void haveLevelToDebuff() {
+        if (gp.player.level >= 10) {
+            this.burned = true;
+        }
+    }
+    public void update() {
+        super.update();
+        haveLevelToDebuff();
+    }
     public boolean haveResource(Entity user) {
 
         boolean haveResource = false;
@@ -46,7 +55,6 @@ public class OBJ_Fireball extends Projectile {
     public void subtractResource(Entity user) {
         user.mana -= useCost;
     }
-
     public Color getParticleColor() {
         Color color = new Color(240,50,0);
         return color;

@@ -1,6 +1,5 @@
 package entity;
 
-import EntityFactory.EntityGenerator;
 import main.GamePanel;
 import main.UtilityTool;
 
@@ -38,6 +37,7 @@ public class Entity {
     public boolean alive = true;
     public boolean dying = false;
     public boolean wet = false;
+    public boolean burned = false;
     public boolean hpBarOn = false;
     public boolean onPath = false;
     public boolean knockBack = false;
@@ -54,7 +54,6 @@ public class Entity {
     public int actionLockCounter = 0;
     public int invincibleCounter = 0;
     public int shotAvailableCounter = 0;
-    public int wetCounter = 0;
     int        dyingCounter = 0;
     public int hpBarCounter = 0;
     public int knockBackCounter = 0;
@@ -64,6 +63,7 @@ public class Entity {
     public int runCounter = 0;
     public int lightCounter = 0;
     public int lightConsumed = 2;
+    public int debuffCounter = 0;
 
     // CHARACTER ATRIBUTES
     public String name;
@@ -93,7 +93,12 @@ public class Entity {
     public boolean boss;
 
     // PLAYER DEBUFS
-    public int wetDebuf = 2;
+    public int wetDebuff = 2;
+    public int fireDebuff = 1;
+
+    // MONSTER DEBUFF
+    public boolean applyWet = false;
+    public boolean applyBurned = false;
 
     // ITEM ATTRIBUTES
     public ArrayList<Entity> inventory = new ArrayList<>();
@@ -155,9 +160,7 @@ public class Entity {
         gp.ui.npc = entity;
         dialogueSet = setNumber;
     }
-    public void interact() {
-
-    }
+    public void interact() {}
     public int getScreenX() {
         return worldX - gp.player.worldX + gp.player.screenX;
     }
@@ -212,7 +215,7 @@ public class Entity {
         actionLockCounter = 0;
         invincibleCounter = 0;
         shotAvailableCounter = 0;
-        wetCounter = 0;
+        debuffCounter = 0;
         dyingCounter = 0;
         hpBarCounter = 0;
         knockBackCounter = 0;
@@ -234,10 +237,6 @@ public class Entity {
             }
         }
     }
-    public Color getParticleColor() {
-        Color color = null;
-        return color;
-    }
     public void checkCollision(){
 
         collisionOn = false;
@@ -252,16 +251,26 @@ public class Entity {
             damagePlayer(attack);
         }
     }
+    public Color getParticleColor() {
+        Color color = null;
+        if (wet){
+            color = new Color(0, 255, 255);
+        }
+        if (burned){
+            color = new Color(255, 0, 0);
+        }
+        return color;
+    }
     public int getParticleSize() {
-        int size = 0;
+        int size = 6;
         return size; // 6 pixels
     }
     public int getParticleSpeed() {
-        int speed = 0;
+        int speed = 1;
         return speed;
     }
     public int getParticleMaxLife() {
-        int maxLife = 0;
+        int maxLife = 20;
         return maxLife;
     }
     public void generateParticle(Entity generator, Entity target) {
@@ -281,6 +290,7 @@ public class Entity {
         gp.particleList.add(p4);
     }
     public void update(){
+        getDebuff();
 
         if (knockBack) {
 
@@ -569,6 +579,84 @@ public class Entity {
         target.knockBackDirection = attacker.direction;
         target.speed += knockBackPower;
         target.knockBack = true;
+    }
+    public void getDebuff() {
+        int i = 20;
+        if(wet) {
+            debuffCounter++;
+            if (debuffCounter == i) {
+                generateParticle(this,this);
+                speed -= wetDebuff;
+                if (speed <= 0) {
+                    speed = 1;
+                }
+            }
+            if (debuffCounter == i*2) {
+                generateParticle(this,this);
+            }
+            if (debuffCounter == i*4) {
+                generateParticle(this,this);
+            }
+            if (debuffCounter == i*6) {
+                generateParticle(this,this);
+            }
+            if (debuffCounter == i*18) {
+                generateParticle(this,this);
+            }if (debuffCounter == i*10) {
+                generateParticle(this,this);
+            }if (debuffCounter == i*12) {
+                generateParticle(this,this);
+            }
+
+            if (debuffCounter > 240) {
+                wet = false;
+                speed = getSpeed();
+                debuffCounter = 0;
+            }
+        }
+
+        if(burned) {
+            debuffCounter++;
+            if (debuffCounter == i) {
+                generateParticle(this,this);
+                life -= fireDebuff;
+                if (life <= 1) {
+                    life = 1;
+                }
+            }
+            if (debuffCounter == i*2) {
+                generateParticle(this,this);
+            }
+            if (debuffCounter == i*4) {
+                generateParticle(this,this);
+                life -= fireDebuff;
+                if (life <= 1) {
+                    life = 1;
+                }
+            }
+            if (debuffCounter == i*6) {
+                generateParticle(this,this);
+            }
+            if (debuffCounter == i*18) {
+                generateParticle(this,this);
+            }if (debuffCounter == i*10) {
+                generateParticle(this,this);
+                life -= fireDebuff;
+                if (life <= 1) {
+                    life = 1;
+                }
+            }if (debuffCounter == i*12) {
+                generateParticle(this,this);
+            }
+
+            if (debuffCounter > 240) {
+                burned = false;
+                debuffCounter = 0;
+            }
+        }
+    }
+    public int getSpeed() {
+        return speed = defaultSpeed;
     }
     public boolean inCamera() {
         boolean inCamera = false;
