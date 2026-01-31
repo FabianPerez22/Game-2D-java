@@ -7,12 +7,17 @@ Features i've made by me way:
 ####
 * Stamina and Run:
     - The player can run, regen stamina and can't do any action like attack or run without stamina.
+####
+* The lanter can be consumed by the time.
+####
+* Debuff's:
+  - Weapon's, monster and projectile can apply debuff's like as burned or wet.
+
 
 Features maybe I'll make:
 =
 ---
-* Apply debuffs on weapons.
-* The lantern will be consumed by the time.
+
 * The player can get armor and more stats like defence or immunity to each debuffs.
 * The monster can apply debuffs.
 * More players with new ability like as teleport, special attacks or anything else.

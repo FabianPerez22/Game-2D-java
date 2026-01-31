@@ -183,8 +183,8 @@ public class EventHandler {
         }
     }
     public void wetGround() {
-        if (gp.player.wet && gp.player.wetCounter > 30){
-            gp.player.wetCounter = 30;
+        if (gp.player.wet && gp.player.debuffCounter > 30){
+            gp.player.debuffCounter = 30;
         }
         gp.player.wet = true;
     }
