@@ -62,13 +62,16 @@ public class EventHandler {
             if(hit(0,27, 16, "right")) damagePit(gp.dialogueState);
             else if(hit(0,88,74, "up")) healingPool(gp.dialogueState);
             else if(hit(0,23,16,"any")) wetGround();
-            else if(hit(0,53,15, "any")) teleport(1,51,44, gp.indoor); // Merchant hause go in
-            else if(hit(1,51,45, "any")) teleport(0,53,15, gp.outside);
-            else if(hit(1,51,42, "up")) speak(gp.npc[1][1]);
-            else if(hit(1,53, 44,"any")) messageConvenient(gp.dialogueState);
+            else if(hit(0,53,15, "any")) teleport(1,49,53, gp.indoor); // Merchant hause go in
+            else if(hit(1,49,54, "any")) teleport(0,53,15, gp.outside);
 
-            //test
-            else if(hit(0,87,78,"any")) wetGround();
+            else if(hit(1,49,48, "up")) speak(gp.npc[1][1]);
+
+            else if(hit(1,46,47, "up")) speak(gp.npc[1][2]);
+
+            else if(hit(1,45,47, "up")) speak(gp.npc[1][3]);
+
+            else if(hit(1,54,53,"any")) messageConvenient(gp.dialogueState);
 
             else if(hit(0,1,32, "any")) teleport(2,40,77, gp.dungeon); // first mine, go in
             else if(hit(2,39,77, "any")) teleport(0,1,32, gp.outside); // go outside

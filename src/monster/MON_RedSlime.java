@@ -3,17 +3,15 @@ package monster;
 import entity.Entity;
 import main.GamePanel;
 import object.OBJ_Coin_Bronze;
-import object.OBJ_Heart;
-import object.OBJ_Mana;
 import object.OBJ_Rock;
 
 import java.util.Random;
 
-public class MOM_RedSlime extends Entity {
+public class MON_RedSlime extends Entity {
 
     GamePanel gp;
 
-    public MOM_RedSlime(GamePanel gp, int col, int row) {
+    public MON_RedSlime(GamePanel gp, int col, int row) {
 
         super(gp);
         this.gp = gp;

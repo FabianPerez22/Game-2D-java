@@ -77,6 +77,8 @@ public class GamePanel extends JPanel implements Runnable{
     public final int transitionState = 7;
     public final int tradeState = 8;
     public final int sleepState = 9;
+    public final int craftingState = 10;
+    public final int ovenState = 11;
 
     // AREA
     public int currentArea;
@@ -322,9 +324,9 @@ public class GamePanel extends JPanel implements Runnable{
             g2.drawString("WorldY " + player.worldY, x, y); y += lineHeight;
             g2.drawString("Col " + (player.worldX + player.solidArea.x)/tileSize, x, y); y += lineHeight;
             g2.drawString("Row " + (player.worldY + player.solidArea.y)/tileSize, x, y); y += lineHeight;
+            g2.drawString("Draw Time: " + passed, x, y); y += lineHeight;
             g2.drawString("God mode:" + keyH.godModeOn, x, y);
 
-            g2.drawString("Draw Time: " + passed, x, y);
         }
 
         g2.dispose();

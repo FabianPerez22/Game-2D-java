@@ -109,11 +109,17 @@ public class Entity {
     public String description = "";
     public int useCost;
     public int price;
+    public int price_OBJ;
+    public int dismantle_value;
     public int knockBackPower = 0;
     public boolean stackable = false;
     public int amount = 1;
     public int lightRadius;
     public double durabilidy = 100;
+
+    // OVEN ATTRIBUTES
+    public int coal;
+    public int ironOre;
 
     // TYPE
     public int type;
@@ -128,6 +134,7 @@ public class Entity {
     public final int type_obstacle = 8;
     public final int type_light = 9;
     public final int type_picaxe = 10;
+    public final int type_crafting = 11;
 
     public Entity(GamePanel gp, int col, int row){
         this.gp = gp;

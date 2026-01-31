@@ -6,11 +6,11 @@ import object.OBJ_Coin_Bronze;
 
 import java.util.Random;
 
-public class MOM_SkeletonLord extends Entity {
+public class MON_SkeletonLord extends Entity {
     GamePanel gp;
     public static final String momName = "Skeleton Lord";
 
-    public MOM_SkeletonLord(GamePanel gp, int col, int row) {
+    public MON_SkeletonLord(GamePanel gp, int col, int row) {
         super(gp);
         this.gp = gp;
         this.worldX = gp.tileSize * col;
