@@ -37,16 +37,16 @@ public class Player extends Entity{
     public void setDefaultValues() {
 
         //init map
-        //worldX = gp.tileSize * 88;
-        //worldY = gp.tileSize * 76;
+        worldX = gp.tileSize * 88;
+        worldY = gp.tileSize * 76;
 
         //shop
         //worldX = gp.tileSize * 54;
         //worldY = gp.tileSize * 15;
 
         // Far from the cave
-       worldX = gp.tileSize * 10;
-       worldY = gp.tileSize * 36;
+        //worldX = gp.tileSize * 10;
+        //worldY = gp.tileSize * 36;
 
         // merchant map
 
@@ -59,10 +59,10 @@ public class Player extends Entity{
         direction = "down";
 
         // PLAYER STATUS
-        level = 9;
+        level = 1;
         maxLife = 6;
         life = maxLife;
-        maxMana = 10;
+        maxMana = 6;
         mana = maxMana;
         maxStamina = 100;
         stamina = maxStamina;
@@ -71,20 +71,22 @@ public class Player extends Entity{
         dexterity = 1; // The more dexterity he has, the less damage he receives.
         exp = 0;
         nextLevelExp = 5;
-        coin = 10000;
+        coin = 0;
         currentWeapon = new OBJ_Sword_Normal(gp);
         currentShield = new OBJ_Shield_wood(gp);
         currentLight = null;
         projectile = new OBJ_Fireball(gp);
         attack = getAttack(); // the total attack value is decided by strength and weapon.
         defense = getDefense(); // the total defense value is decided by dexterity and shield.
+        price_OBJ = 0;
+        ironOre = 0;
+        coal = 0;
 
         getImage();
         getAttackImage();
         getGuardImage();
         setItems();
         setDialogue();
-
     }
     public void setDefaultPositions() {
         gp.currentMap = 0;
@@ -108,9 +110,7 @@ public class Player extends Entity{
         inventory.clear();
         inventory.add(currentWeapon);
         inventory.add(currentShield);
-        inventory.add(new OBJ_Pickaxe(gp));
-        inventory.add(new OBJ_Lanter(gp));
-        inventory.add(new OBJ_Lanter(gp));
+        inventory.add(new OBJ_Lantern(gp));
     }
     public int getAttack() {
         attackArea = currentWeapon.attackArea;
@@ -425,7 +425,6 @@ public class Player extends Entity{
                 staminaCounter = 80;
             }
         }
-
     }
     public void damageProjectile(int i) {
         if (i != 999) {
@@ -568,6 +567,45 @@ public class Player extends Entity{
 
 
             startDialogue(this,0);
+        }
+    }
+    public void getCurrency() {
+        int i = searchItemInInventory("Iron ingot");
+        if (i != 999) {
+            price_OBJ =  inventory.get(i).amount;
+        } else {
+            price_OBJ = 0;
+        }
+        i = searchItemInInventory("Coal");
+        if (i != 999) {
+            coal =  inventory.get(i).amount;
+        }else {
+            coal = 0;
+        }
+        i = searchItemInInventory("Iron ore");
+        if (i != 999) {
+            ironOre =  inventory.get(i).amount;
+        }else {
+            ironOre = 0;
+        }
+    }
+    public void consumeOBJ(int quantity, String object) {
+        int i = searchItemInInventory(object);
+        if (i != 999) {
+            inventory.get(i).amount -= quantity;
+            if (inventory.get(i).amount <= 0) {
+                inventory.remove(i);
+            }
+        }
+    }
+    public void getDismantleItems(int quantity) {
+        int index = searchItemInInventory("Iron ingot");
+        for (int i = 0; i < quantity; i++) {
+            if ( index == 999) {
+                inventory.add(new OBJ_IronIngot(gp));
+            } else {
+                inventory.get(index).amount++;
+            }
         }
     }
     public void selectItem() {

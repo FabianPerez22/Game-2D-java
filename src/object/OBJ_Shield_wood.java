@@ -9,6 +9,7 @@ public class OBJ_Shield_wood extends Entity {
 
     public OBJ_Shield_wood(GamePanel gp, int col, int row) {
         super(gp, col, row);
+        price_OBJ = 2;
 
         type = type_shield;
         name = objName;

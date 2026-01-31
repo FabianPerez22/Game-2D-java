@@ -13,17 +13,16 @@ Features i've made by me way:
 ####
 * Debuff's:
   - Weapon's, monster and projectile can apply debuff's like as burned or wet.
-
+####
+* Crafting System and Minerals:
+  - The player can craft some items, dismantle and melt some ore to get an ingot .
 
 Features maybe I'll make:
 =
 ---
-
 * The player can get armor and more stats like defence or immunity to each debuffs.
-* The monster can apply debuffs.
-* More players with new ability like as teleport, special attacks or anything else.
+* More players with new ability like as teleport, dash, special attacks or anything else.
 * New items who can be used for teleport the user.
-* Minerals and craft system.
 * And another more things.
 
 

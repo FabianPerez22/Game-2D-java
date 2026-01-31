@@ -6,11 +6,11 @@ import object.OBJ_Coin_Bronze;
 
 import java.util.Random;
 
-public class MOM_Bat extends Entity {
+public class MON_Bat extends Entity {
 
     GamePanel gp;
 
-    public MOM_Bat(GamePanel gp, int col, int row) {
+    public MON_Bat(GamePanel gp, int col, int row) {
 
         super(gp);
         this.gp = gp;
