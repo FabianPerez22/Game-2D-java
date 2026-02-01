@@ -41,6 +41,7 @@ public class SaveLoad {
             for (int i = 0; i < gp.player.inventory.size(); i++) {
                 ds.itemNames.add(gp.player.inventory.get(i).name);
                 ds.itemAmounts.add(gp.player.inventory.get(i).amount);
+                ds.itemDurability.add(gp.player.inventory.get(i).durabilidy);
             }
             // PLAYER EQUIPMENT
             ds.currentWeaponSlot = gp.player.getCurrentWeaponSlot();
@@ -101,6 +102,8 @@ public class SaveLoad {
             for (int i = 0; i < ds.itemNames.size(); i++) {
                 gp.player.inventory.add(getObject(ds.itemNames.get(i)));
                 gp.player.inventory.get(i).amount = ds.itemAmounts.get(i);
+                gp.player.inventory.get(i).durabilidy = ds.itemDurability.get(i);
+                gp.player.inventory.get(i).getImage();
             }
 
             // PLAYER EQUIPMENT

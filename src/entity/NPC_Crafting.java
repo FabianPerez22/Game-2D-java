@@ -30,6 +30,11 @@ public class NPC_Crafting extends Entity{
         dialogues[3][0] = "You cannot carry any more!";
         dialogues[4][0] = "You cannot dismantle an equipped item!";
         dialogues[5][0] = "You cannot dismantle this item!";
+        dialogues[6][0] = "You cannot repair this item!";
+        dialogues[7][0] = "You need more objects to repair that!";
+        dialogues[8][0] = "This item is already repair to his max value!";
+
+
 
     }
 

@@ -653,10 +653,6 @@ public class UI {
                     g2.drawString(line, textX, textY);
                     textY += 32;
                 }
-
-
-                // DURABILITY
-                g2.drawString("Durability:" + (int)(entity.inventory.get(itemIndex).durabilidy), textX, textY+50);
             }
         }
     }
@@ -729,6 +725,7 @@ public class UI {
             case 0: crafting_select(); break;
             case 1: crafting(); break;
             case 2: dismantle(); break;
+            case 3: repair(); break;
         }
         gp.keyH.enterPressed = false;
     }
@@ -740,7 +737,7 @@ public class UI {
         int x = gp.tileSize*14;
         int y = gp.tileSize*4;
         int width = gp.tileSize*4;
-        int height = (int) (gp.tileSize*3.5);
+        int height = (int) (gp.tileSize*4.5);
         drawSubWindow(x,y,width,height);
 
         // DRAW TEXTS
@@ -766,8 +763,17 @@ public class UI {
         }
         y += gp.tileSize;
 
-        g2.drawString("Leave", x,y);
+        g2.drawString("Repair", x,y);
         if (commandNum == 2) {
+            g2.drawString(">", x-24, y);
+            if (gp.keyH.enterPressed) {
+                subState = 3;
+            }
+        }
+        y += gp.tileSize;
+
+        g2.drawString("Leave", x,y);
+        if (commandNum == 3) {
             g2.drawString(">", x-24, y);
             if (gp.keyH.enterPressed) {
                 commandNum = 0;
@@ -899,6 +905,65 @@ public class UI {
             }
         }
     }
+    public void repair() {
+
+        // DRAW PLAYER INVENTORYd
+        drawInventory(gp.player, true);
+        //DRAW HINT WINDOW
+        int x = gp.tileSize*2;
+        int y = gp.tileSize*9+15;
+        int width = gp.tileSize*6;
+        int height = gp.tileSize*2-10;
+        drawSubWindow(x,y,width,height);
+        g2.setFont(g2.getFont().deriveFont(30F));
+        g2.drawString("[ESC] Back", x+24, y+60 );
+
+        // UPDATE THE OBJ CURRENCY
+        gp.player.getCurrency();
+
+        // DRAW PLAYER CURRENCY  WINDOW
+        x = gp.tileSize*13;
+        drawSubWindow(x,y,width,height);
+        g2.drawString("Iron ingot: " + gp.player.price_OBJ, x+24, y+60 );
+
+        // DRAW PRICE WINDOW
+        int itemIndex = getItemIndexOnSlo(playerSlotCol, playerSlotRow);
+        if (itemIndex < gp.player.inventory.size()) {
+            x = (int)  (gp.tileSize*16.5);
+            y = (int)  (gp.tileSize*5.5);
+            width = (int)  (gp.tileSize*2.5);
+            height = gp.tileSize;
+            drawSubWindow(x,y,width,height);
+            g2.drawImage(iron, x+10, y+ 8,32, 32, null);
+
+            int price = gp.player.inventory.get(itemIndex).repair_cost;
+            String text = ""+price;
+            x = getXforAlignToRightText(text, gp.tileSize*18-20);
+            g2.drawString(text,x, y+ 34);
+
+
+            // REPAIR AN ITEM
+            if (gp.keyH.enterPressed) {
+
+                if (gp.player.inventory.get(itemIndex).repair_cost == 0){
+                    subState = 0;
+                    npc.startDialogue(npc,6);
+                } else if (gp.player.inventory.get(itemIndex).repair_cost > gp.player.price_OBJ){
+                    subState = 0;
+                    npc.startDialogue(npc,7);
+                } else if (gp.player.inventory.get(itemIndex).durabilidy == gp.player.inventory.get(itemIndex).maxDurability){
+                    subState = 0;
+                    npc.startDialogue(npc,8);
+                }
+                 else {
+                     gp.player.inventory.get(itemIndex).durabilidy = gp.player.inventory.get(itemIndex).maxDurability;
+                     gp.player.consumeOBJ(price, "Iron ingot");
+                     gp.player.inventory.get(itemIndex).getImage();
+                }
+            }
+        }
+    }
+
     public void drawOvenScreen() {
         switch (subState) {
             case 0: oven_select(); break;
