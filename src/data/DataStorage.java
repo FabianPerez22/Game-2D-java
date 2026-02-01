@@ -20,6 +20,7 @@ public class DataStorage implements Serializable {
     // PLAYER INVENTORY
     ArrayList<String> itemNames = new ArrayList<>();
     ArrayList<Integer> itemAmounts = new ArrayList<>();
+    ArrayList<Double> itemDurability = new ArrayList<>();
     int currentWeaponSlot;
     int currentShieldSlot;
 

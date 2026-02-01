@@ -31,6 +31,7 @@ public class EntityGenerator {
         factories.put(OBJ_Key.objName, new OBJ_KeyFactory());
         factories.put(OBJ_Lantern.objName, new OBJ_LanterFactory());
         factories.put(OBJ_Mana.objName, new OBJ_ManaFactory());
+        factories.put(OBJ_Mirror.objName, new OBJ_MirrorFactory());
         factories.put(OBJ_Potion_Red.objName, new OBJ_Potion_Red_Factory());
         factories.put(OBJ_Rock.objName, new OBJ_RockFactory());
         factories.put(OBJ_Shield_Blue.objName, new OBJ_Shield_Blue_Factory());
