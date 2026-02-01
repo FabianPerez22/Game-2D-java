@@ -38,7 +38,7 @@ public class OBJ_Sword_Normal extends Entity{
         type = type_sword;
         repair_cost = 2;
         name = objName;
-        attackValue = 2;
+        attackValue = 1;
         attackArea.width = 36;
         attackArea.height = 36;
         knockBackPower = 2;
@@ -48,7 +48,6 @@ public class OBJ_Sword_Normal extends Entity{
     }
     public void getImage() {
         down1 = setup("objects/sword_normal", gp.tileSize, gp.tileSize);
-        description = "[" + name +"]\n An old Sword\nDurability: " + (int)(durabilidy);
-
+        description = "[" + name +"]\n An old Sword\nDurability: " + (int)(durabilidy) + " Attack: " + attackValue;
     }
 }

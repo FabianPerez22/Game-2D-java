@@ -88,6 +88,7 @@ public class Entity {
     public int motion2_duration;
     public Entity currentWeapon;
     public Entity currentShield;
+    public Entity currentArmor;
     public Entity currentLight;
     public Projectile projectile;
     public boolean boss;
@@ -100,6 +101,10 @@ public class Entity {
     public boolean applyWet = false;
     public boolean applyBurned = false;
 
+    // ARMOUR ATTRIBUTES
+    public boolean avoidWet = false;
+    public boolean avoidBurned = false;
+
     // ITEM ATTRIBUTES
     public ArrayList<Entity> inventory = new ArrayList<>();
     public final int maxInventorySize = 20;
@@ -107,6 +112,7 @@ public class Entity {
     public int attackValue;
     public int defenseValue;
     public String description = "";
+    public String speciallyAttribute;
     public int useCost;
     public int price;
     public int price_OBJ;
@@ -136,6 +142,7 @@ public class Entity {
     public final int type_obstacle = 8;
     public final int type_light = 9;
     public final int type_picaxe = 10;
+    public final int type_armor = 11;
 
     public Entity(GamePanel gp, int col, int row){
         this.gp = gp;
@@ -567,6 +574,12 @@ public class Entity {
                 setKnockBack(gp.player, this, knockBackPower);
             }
 
+            if (!gp.player.currentArmor.avoidWet){
+                gp.player.wet = applyWet;
+            }
+
+            gp.player.currentArmor.durabilidy -= 0.5;
+            gp.player.currentArmor.getImage();
             gp.player.life -= damage;
             gp.player.invincible = true;
         }
@@ -590,7 +603,7 @@ public class Entity {
     }
     public void getDebuff() {
         int i = 20;
-        if(wet) {
+        if(wet && !avoidWet && !currentArmor.avoidWet) {
             debuffCounter++;
             if (debuffCounter == i) {
                 generateParticle(this,this);

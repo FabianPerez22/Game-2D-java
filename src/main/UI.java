@@ -84,8 +84,8 @@ public class UI {
         }
         // PAUSE STATE
         if(gp.gameState == gp.pauseState){
-            drawPlayerLife();
             drawPauseScreen();
+            drawPlayerLife();
         }
         // DIALOGUE STATE
         if(gp.gameState == gp.dialogueState){
@@ -263,7 +263,6 @@ public class UI {
         String text = "PAUSED";
         int x = getXforCenteredText(text);
         int y = gp.screenHeight/2;
-
         g2.drawString(text, x, y);
     }
     public void drawMessage() {
@@ -570,6 +569,8 @@ public class UI {
             slotCol = npcSlotCol;
             slotRow = npcSlotRow;
         }
+        gp.player.getAttack();
+        gp.player.getDefense();
 
         // FRAME
         drawSubWindow(frameX, frameY, frameWidth, frameHeight);
@@ -587,7 +588,8 @@ public class UI {
             // EQUIP CURSOR
             if (entity.inventory.get(i) == entity.currentWeapon ||
                     entity.inventory.get(i) == entity.currentShield ||
-                    entity.inventory.get(i) == entity.currentLight) {
+                    entity.inventory.get(i) == entity.currentLight ||
+                    entity.inventory.get(i) == entity.currentArmor) {
                 g2.setColor(new Color(240,190,90));
                 g2.fillRoundRect(slotX,slotY, gp.tileSize, gp.tileSize, 10, 10);
             }
@@ -652,6 +654,15 @@ public class UI {
                 for (String line: entity.inventory.get(itemIndex).description.split("\n")){
                     g2.drawString(line, textX, textY);
                     textY += 32;
+                }
+
+                if (entity.inventory.get(itemIndex).speciallyAttribute != null) {
+                    drawSubWindow(dFrameX-gp.tileSize*6, dFrameY-gp.tileSize*5, dFrameWidth-30, dFrameHeight);
+                    for (String line2: entity.inventory.get(itemIndex).speciallyAttribute.split("\n")){
+                        g2.setColor(Color.yellow);
+                        g2.drawString(line2, textX-gp.tileSize*5-20, textY-gp.tileSize*7);
+                        textY += 32;
+                    }
                 }
             }
         }
@@ -889,7 +900,8 @@ public class UI {
                     npc.startDialogue(npc,5);
                 }
                 else if (gp.player.inventory.get(itemIndex) == gp.player.currentWeapon
-                        || gp.player.inventory.get(itemIndex) == gp.player.currentShield) {
+                        || gp.player.inventory.get(itemIndex) == gp.player.currentShield
+                        || gp.player.inventory.get(itemIndex) == gp.player.currentArmor) {
                     commandNum = 0;
                     subState = 0;
                     npc.startDialogue(npc,4);
@@ -1215,7 +1227,8 @@ public class UI {
             if (gp.keyH.enterPressed) {
 
                 if (gp.player.inventory.get(itemIndex) == gp.player.currentWeapon
-                        || gp.player.inventory.get(itemIndex) == gp.player.currentShield) {
+                        || gp.player.inventory.get(itemIndex) == gp.player.currentShield
+                        || gp.player.inventory.get(itemIndex) == gp.player.currentArmor) {
                     commandNum = 0;
                     subState = 0;
                     npc.startDialogue(npc,4);

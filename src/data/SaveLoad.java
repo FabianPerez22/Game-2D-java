@@ -46,6 +46,7 @@ public class SaveLoad {
             // PLAYER EQUIPMENT
             ds.currentWeaponSlot = gp.player.getCurrentWeaponSlot();
             ds.currentShieldSlot = gp.player.getCurrentShieldlot();
+            ds.currentArmorSlot = gp.player.getCurrentArmorSlot();
 
             // OBJECTS ON MAP
             ds.mapObjectNames = new String[gp.maxMap][gp.obj[1].length];
@@ -109,6 +110,7 @@ public class SaveLoad {
             // PLAYER EQUIPMENT
             gp.player.currentWeapon = gp.player.inventory.get(ds.currentWeaponSlot);
             gp.player.currentShield = gp.player.inventory.get(ds.currentShieldSlot);
+            gp.player.currentArmor = gp.player.inventory.get(ds.currentArmorSlot);
             gp.player.getAttack();
             gp.player.getDefense();
             gp.player.getAttackImage();

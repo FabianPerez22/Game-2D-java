@@ -42,6 +42,7 @@ public class NPC_Crafting extends Entity{
         inventory.add(new OBJ_Potion_Red(gp));
         inventory.add(new OBJ_Lantern(gp));
         inventory.add(new OBJ_Shield_Blue(gp));
+        inventory.add(new OBJ_IronArmor(gp));
     }
 
     public void speak() {

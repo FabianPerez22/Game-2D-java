@@ -74,6 +74,7 @@ public class Player extends Entity{
         coin = 0;
         currentWeapon = new OBJ_Sword_Normal(gp);
         currentShield = new OBJ_Shield_wood(gp);
+        currentArmor = new OBJ_IronArmor(gp);
         currentLight = null;
         projectile = new OBJ_Fireball(gp);
         attack = getAttack(); // the total attack value is decided by strength and weapon.
@@ -110,8 +111,12 @@ public class Player extends Entity{
         inventory.clear();
         inventory.add(currentWeapon);
         inventory.add(currentShield);
+        inventory.add(currentArmor);
         inventory.add(new OBJ_Lantern(gp));
         inventory.add(new OBJ_Mirror(gp));
+        inventory.add(new OBJ_Potion_Red(gp));
+        inventory.add(new OBJ_Potion_Red(gp));
+        inventory.add(new OBJ_Potion_Red(gp));
     }
     public int getAttack() {
         attackArea = currentWeapon.attackArea;
@@ -123,10 +128,18 @@ public class Player extends Entity{
         } else if (currentWeapon.type == type_axe) {
             attack = strength * currentWeapon.attackValue/-1;
         }
+        if (currentWeapon.durabilidy <= 50) {
+            return attack = strength * currentWeapon.attackValue/2;
+        }
         return attack;
     }
     public int getDefense() {
-        return defense = dexterity * currentShield.defenseValue;
+        defense = (currentArmor.defenseValue+currentShield.defenseValue)+dexterity/2;
+
+        if (currentArmor.durabilidy <= 50) {
+            return defense = (currentArmor.defenseValue/2)+(currentShield.defenseValue)+dexterity/2;
+        }
+        return defense;
     }
     public int getCurrentWeaponSlot(){
         int currentWeaponSlot = 0;
@@ -145,6 +158,15 @@ public class Player extends Entity{
             }
         }
         return currentShieldSlot;
+    }
+    public int getCurrentArmorSlot(){
+        int currentArmorSlot = 0;
+        for (int i = 0; i < inventory.size(); i++) {
+            if (inventory.get(i) == currentArmor) {
+                currentArmorSlot = i;
+            }
+        }
+        return currentArmorSlot;
     }
     public int getSpeed() {
         return speed = defaultSpeed;
@@ -318,7 +340,7 @@ public class Player extends Entity{
                     staminaCounter = 0;
 
                     // DECREASED DURABILITY
-                    currentWeapon.durabilidy -= 25;
+                    currentWeapon.durabilidy -= 0.4;
                     currentWeapon.getImage();
 
                     if (currentWeapon.type == type_axe) {
@@ -481,8 +503,16 @@ public class Player extends Entity{
                 if (damage < 1) {
                     damage = 1;
                 }
-                this.wet = gp.monster[gp.currentMap][i].applyWet;
-                this.burned = gp.monster[gp.currentMap][i].applyBurned;
+                if (!gp.player.currentArmor.avoidWet){
+                    this.wet = gp.monster[gp.currentMap][i].applyWet;
+                }
+
+                if (!gp.player.currentArmor.avoidBurned){
+                    this.burned = gp.monster[gp.currentMap][i].applyBurned;
+                }
+
+                this.currentArmor.durabilidy -= 0.5;
+                this.currentArmor.getImage();
 
                 life -= damage;
                 transparent = true;
@@ -506,6 +536,9 @@ public class Player extends Entity{
                 int damage = attack - gp.monster[gp.currentMap][i].defense;
                 if (damage < 0) {
                     damage = 0;
+                }
+                if (currentWeapon.durabilidy <= 50) {
+                    damage = damage/2;
                 }
                 // APPLY DEBUFF FROM THE CURRENT WEAPON
                 gp.monster[gp.currentMap][i].wet = gp.player.currentWeapon.wet;
@@ -625,6 +658,10 @@ public class Player extends Entity{
 
             if (selectedItem.type == type_shield ) {
                 currentShield = selectedItem;
+                defense = getDefense();
+            }
+            if (selectedItem.type == type_armor ) {
+                currentArmor = selectedItem;
                 defense = getDefense();
             }
             if (selectedItem.type == type_light) {

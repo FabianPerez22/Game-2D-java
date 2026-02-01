@@ -26,6 +26,7 @@ public class EntityGenerator {
         factories.put(OBJ_Door_Iron.objName, new OBJ_Iron_Door_Factory());
         factories.put(OBJ_Fireball.objName, new OBJ_FireballFactory());
         factories.put(OBJ_Heart.objName, new OBJ_HeartFactory());
+        factories.put(OBJ_IronArmor.objName, new OBJ_IronArmorFactory());
         factories.put(OBJ_IronIngot.objName, new OBJ_IronIngotFactory());
         factories.put(OBJ_IronOre.objName, new OBJ_IronOreFactory());
         factories.put(OBJ_Key.objName, new OBJ_KeyFactory());

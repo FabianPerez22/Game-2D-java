@@ -15,14 +15,22 @@ Features i've made by me way:
   - Weapon's, monster and projectile can apply debuff's like as burned or wet.
 ####
 * Crafting System and Minerals:
-  - The player can craft some items, dismantle and melt some ore to get an ingot .
+  - The player can craft some items, dismantle and melt some ore to get an ingot.
+####
+* Specially object:
+   - The player can use a Specially Object like as a mirror, this object teleport the
+player to the merchant and if he uses the object again, he'll be teleport back to the last
+locations the player was being.
+####
+  * Durability system:
+    - When the player used a special object or his weapons, the durability will be 
+consumed, and the specially object will not be available to be use again but the player
+can repair it to restore his durability.
 
 Features maybe I'll make:
 =
 ---
 * The player can get armor and more stats like defence or immunity to each debuffs.
-* More players with new ability like as teleport, dash, special attacks or anything else.
-* New items who can be used for teleport the user.
 * And another more things.
 
 
