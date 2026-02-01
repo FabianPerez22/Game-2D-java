@@ -110,12 +110,14 @@ public class Entity {
     public int useCost;
     public int price;
     public int price_OBJ;
+    public int repair_cost;
     public int dismantle_value;
     public int knockBackPower = 0;
     public boolean stackable = false;
     public int amount = 1;
     public int lightRadius;
-    public double durabilidy = 100;
+    public double durabilidy;
+    public double maxDurability;
 
     // OVEN ATTRIBUTES
     public int coal;
@@ -134,7 +136,6 @@ public class Entity {
     public final int type_obstacle = 8;
     public final int type_light = 9;
     public final int type_picaxe = 10;
-    public final int type_crafting = 11;
 
     public Entity(GamePanel gp, int col, int row){
         this.gp = gp;
@@ -234,7 +235,6 @@ public class Entity {
     public void getDialogue(){}
     public void checkDrop () {}
     public void dropItem (Entity droppedItem) {
-
         for (int i = 0; i < gp.obj[1].length; i++) {
             if (gp.obj[gp.currentMap][i] == null) {
                 gp.obj[gp.currentMap][i] = droppedItem;
@@ -244,6 +244,7 @@ public class Entity {
             }
         }
     }
+    public void getImage(){}
     public void checkCollision(){
 
         collisionOn = false;

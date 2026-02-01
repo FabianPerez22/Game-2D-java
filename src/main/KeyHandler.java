@@ -37,9 +37,9 @@ public class KeyHandler implements KeyListener {
         // GAME OVER STATE
         else if(gp.gameState == gp.gameOverState){ gameOverState(code); }
         // TRADE STATE
-        else if(gp.gameState == gp.tradeState){ craft_trade_State(code); }
+        else if(gp.gameState == gp.tradeState){ trade_State(code); }
         // CRAFTING STATE
-        else if(gp.gameState == gp.craftingState){ craft_trade_State(code); }
+        else if(gp.gameState == gp.craftingState){ craft_State(code); }
         // OVEN STATE
         else if(gp.gameState == gp.ovenState){ ovenState(code); }
     }
@@ -225,7 +225,7 @@ public class KeyHandler implements KeyListener {
         }
         playerInventory(code);
     }
-    public void craft_trade_State(int code) {
+    public void trade_State(int code) {
         if (code == KeyEvent.VK_ENTER){
             enterPressed = true;
         }
@@ -258,6 +258,46 @@ public class KeyHandler implements KeyListener {
             }
         }
     }
+    public void craft_State(int code) {
+        if (code == KeyEvent.VK_ENTER){
+            enterPressed = true;
+        }
+        if (gp.ui.subState == 0) {
+            if (code == KeyEvent.VK_W) {
+                gp.ui.commandNum--;
+                if (gp.ui.commandNum < 0) {
+                    gp.ui.commandNum = 3;
+                }
+                gp.playSE(11);
+            }
+            if (code == KeyEvent.VK_S) {
+                gp.ui.commandNum++;
+                if (gp.ui.commandNum > 3) {
+                    gp.ui.commandNum = 0;
+                }
+                gp.playSE(11);
+            }
+        }
+        if (gp.ui.subState == 1 ){
+            npcInventory(code);
+            if (code == KeyEvent.VK_ESCAPE){
+                gp.ui.subState = 0;
+            }
+        }
+        if (gp.ui.subState == 2 ){
+            playerInventory(code);
+            if (code == KeyEvent.VK_ESCAPE){
+                gp.ui.subState = 0;
+            }
+        }
+        if (gp.ui.subState == 3 ){
+            playerInventory(code);
+            if (code == KeyEvent.VK_ESCAPE){
+                gp.ui.subState = 0;
+            }
+        }
+    }
+
     public void ovenState(int code) {
         if (code == KeyEvent.VK_ENTER){
             enterPressed = true;
@@ -331,7 +371,6 @@ public class KeyHandler implements KeyListener {
             }
         }
     }
-
     public void gameOverState(int code) {
 
         if (code == KeyEvent.VK_W){
