@@ -160,7 +160,8 @@ public class GamePanel extends JPanel implements Runnable{
             }
             // DRAW → 30 veces por segundo
             if (deltaDraw >= 1) {
-                repaint();
+                repaint(9000000000000000000L);
+                updateEntity();
                 deltaDraw--;
                 drawCount++;
             }
@@ -186,6 +187,15 @@ public class GamePanel extends JPanel implements Runnable{
                     npc[currentMap][i].update();
                 }
             }
+
+
+        }
+        if(gameState == pauseState){
+            // nothing for now
+        }
+    }
+    public void updateEntity() {
+        if(gameState == playState){
             for (int i = 0; i < monster[1].length; i++) {
                 if(monster[currentMap][i] != null) {
                     if (monster[currentMap][i].alive && !monster[currentMap][i].dying) {
@@ -197,6 +207,7 @@ public class GamePanel extends JPanel implements Runnable{
                     }
                 }
             }
+
             for (int i = 0; i < projectileList[1].length; i++) {
                 if(projectileList[currentMap][i] != null) {
                     if (projectileList[currentMap][i].alive) {
@@ -207,6 +218,7 @@ public class GamePanel extends JPanel implements Runnable{
                     }
                 }
             }
+
             for (int i = 0; i < particleList.size(); i++) {
                 if(particleList.get(i) != null) {
                     if (particleList.get(i).alive) {
@@ -222,9 +234,6 @@ public class GamePanel extends JPanel implements Runnable{
                     iTile[currentMap][i].update();
                 }
             }
-        }
-        if(gameState == pauseState){
-            // nothing for now
         }
     }
     public void paintComponent(Graphics g) {
@@ -326,7 +335,7 @@ public class GamePanel extends JPanel implements Runnable{
             g2.drawString("Row " + (player.worldY + player.solidArea.y)/tileSize, x, y); y += lineHeight;
             g2.drawString("Draw Time: " + passed, x, y); y += lineHeight;
             g2.drawString("God mode:" + keyH.godModeOn, x, y);
-
+            System.out.println(passed);
         }
 
         g2.dispose();

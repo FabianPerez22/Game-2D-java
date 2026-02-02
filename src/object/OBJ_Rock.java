@@ -15,7 +15,7 @@ public class OBJ_Rock extends Projectile {
         this.gp = gp;
 
         name = objName;
-        speed = 8;
+        speed = 16;
         maxLife = 80;
         life = maxLife;
         attack = 2;
@@ -53,11 +53,11 @@ public class OBJ_Rock extends Projectile {
         return size; // 6 pixels
     }
     public int getParticleSpeed() {
-        int speed = 1;
+        int speed = 3;
         return speed;
     }
     public int getParticleMaxLife() {
-        int maxLife = 20;
+        int maxLife = 10;
         return maxLife;
     }
 

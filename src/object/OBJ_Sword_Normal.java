@@ -41,7 +41,7 @@ public class OBJ_Sword_Normal extends Entity{
         attackValue = 1;
         attackArea.width = 36;
         attackArea.height = 36;
-        knockBackPower = 2;
+        knockBackPower = 4;
         motion1_duration = 10;
         motion2_duration = 25;
         getImage();

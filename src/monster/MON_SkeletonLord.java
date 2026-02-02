@@ -18,7 +18,7 @@ public class MON_SkeletonLord extends Entity {
 
         type = type_monster;
         name = momName;
-        defaultSpeed = 1;
+        defaultSpeed = 2;
         speed = defaultSpeed;
         maxLife = 10;
         life = maxLife;
