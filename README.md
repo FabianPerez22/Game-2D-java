@@ -31,8 +31,7 @@ can repair it to restore his durability.
 
 Features maybe I'll make:
 =
----
-* The player can get armor and more stats like defence or immunity to each debuffs.
+...
 * And another more things.
 
 
