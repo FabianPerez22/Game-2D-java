@@ -38,6 +38,8 @@ public class GamePanel extends JPanel implements Runnable{
     // FPS
     final int UPS = 60;
     final int FPS = 30;
+    int slowUpdateCounter = 0;
+
 
     // SYSTEM
     public TileManager tileM = new TileManager(this);
@@ -142,31 +144,29 @@ public class GamePanel extends JPanel implements Runnable{
 
             long currentTime = System.nanoTime();
             long elapsed = currentTime - lastTime;
+            lastTime = currentTime;
 
             deltaUpdate += elapsed / updateInterval;
             deltaDraw   += elapsed / drawInterval;
-            lastTime = currentTime;
+            timer += elapsed;
 
-            timer += (currentTime - lastTime);
-            lastTime = currentTime;
 
 
             // UPDATE → 60 veces por segundo
             if (deltaUpdate >= 1) {
-                update();
+                updateAll();
                 deltaUpdate--;
                 UPSCount++;
                 timer++;
             }
             // DRAW → 30 veces por segundo
             if (deltaDraw >= 1) {
-                repaint(9000000000000000000L);
-                updateEntity();
+                repaint();
                 deltaDraw--;
                 drawCount++;
             }
 
-            if(timer >= 60){
+            if(timer >= 1_000_000_000L){
                 System.out.println("UPS FPS: " + UPSCount);
                 System.out.println("DRAW FPS: " + drawCount);
                 UPSCount = 0;
@@ -175,65 +175,65 @@ public class GamePanel extends JPanel implements Runnable{
             }
 
         }
+
     }
-    public void update() {
+    public void updateAll() {
         if(gameState == playState){
             // PLAYER
             player.update();
 
             //NPC
-            for (int i = 0; i < npc[1].length; i++) {
-                if (npc[currentMap][i] != null){
-                    npc[currentMap][i].update();
+            slowUpdateCounter++;
+
+            if (slowUpdateCounter >= 2) {
+                for (int i = 0; i < npc[1].length; i++) {
+                    if (npc[currentMap][i] != null){
+                        npc[currentMap][i].update();
+                    }
                 }
+
+                for (int i = 0; i < monster[1].length; i++) {
+                    if(monster[currentMap][i] != null) {
+                        if (monster[currentMap][i].alive && !monster[currentMap][i].dying) {
+                            monster[currentMap][i].update();
+                        }
+                        if (!monster[currentMap][i].alive) {
+                            monster[currentMap][i].checkDrop();
+                            monster[currentMap][i] = null;
+                        }
+                    }
+                }
+                for (int i = 0; i < projectileList[1].length; i++) {
+                    if(projectileList[currentMap][i] != null) {
+                        if (projectileList[currentMap][i].alive) {
+                            projectileList[currentMap][i].update();
+                        }
+                        if (!projectileList[currentMap][i].alive) {
+                            projectileList[currentMap][i] = null;
+                        }
+                    }
+                }
+                for (int i = 0; i < particleList.size(); i++) {
+                    if(particleList.get(i) != null) {
+                        if (particleList.get(i).alive) {
+                            particleList.get(i).update();
+                        }
+                        if (!particleList.get(i).alive) {
+                            particleList.remove(i);
+                        }
+                    }
+                }
+                for (int i = 0; i < iTile[1].length; i++) {
+                    if (iTile[currentMap][i] != null) {
+                        iTile[currentMap][i].update();
+                    }
+                }
+
+                slowUpdateCounter = 0;
             }
-
-
         }
         if(gameState == pauseState){
             // nothing for now
-        }
-    }
-    public void updateEntity() {
-        if(gameState == playState){
-            for (int i = 0; i < monster[1].length; i++) {
-                if(monster[currentMap][i] != null) {
-                    if (monster[currentMap][i].alive && !monster[currentMap][i].dying) {
-                        monster[currentMap][i].update();
-                    }
-                    if (!monster[currentMap][i].alive) {
-                        monster[currentMap][i].checkDrop();
-                        monster[currentMap][i] = null;
-                    }
-                }
-            }
-
-            for (int i = 0; i < projectileList[1].length; i++) {
-                if(projectileList[currentMap][i] != null) {
-                    if (projectileList[currentMap][i].alive) {
-                        projectileList[currentMap][i].update();
-                    }
-                    if (!projectileList[currentMap][i].alive) {
-                        projectileList[currentMap][i] = null;
-                    }
-                }
-            }
-
-            for (int i = 0; i < particleList.size(); i++) {
-                if(particleList.get(i) != null) {
-                    if (particleList.get(i).alive) {
-                        particleList.get(i).update();
-                    }
-                    if (!particleList.get(i).alive) {
-                        particleList.remove(i);
-                    }
-                }
-            }
-            for (int i = 0; i < iTile[1].length; i++) {
-                if (iTile[currentMap][i] != null) {
-                    iTile[currentMap][i].update();
-                }
-            }
         }
     }
     public void paintComponent(Graphics g) {
